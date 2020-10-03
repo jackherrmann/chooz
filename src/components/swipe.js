@@ -10,16 +10,18 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 30, 
         border: 0, 
         color: 'white', 
-        width: '80%', 
-        marginRight: '1rem'
+        // width: '300%',
+        marginRight: '1rem',
+        marginTop: '1rem',
     }, 
     yesButtonStyle: {
         background: 'green', 
         borderRadius: 30, 
         border: 0, 
         color: 'white', 
-        width: '80%', 
-        marginLeft: '1rem'
+        // width: '300%',
+        marginLeft: '1rem',
+        marginTop: '1rem',
     }, 
   }));
 
@@ -34,26 +36,29 @@ const handleNoClick = () => {
 export default function SwipePage() {
       const classes = useStyles();
       return (
-        <Grid>
             <Grid 
                 container
-                direction="row"
+                direction="column"
                 justify="center"
                 alignItems="center">
                 <Grid item>
-                    <IconButton className ={classes.noButtonStyle} onClick={handleNoClick} aria-label="Not Interested">
-                        <NotInterestedIcon />
-                    </IconButton>
-                </Grid>
-                <Grid item>
                     <Activity />
                 </Grid>
-                <Grid item>
-                    <IconButton className={classes.yesButtonStyle} onClick={handleYesClick} aria-label="Interested">
-                        <CheckIcon />
-                    </IconButton>
+                <Grid container
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                    <Grid item>
+                        <IconButton className ={classes.noButtonStyle} onClick={handleNoClick} aria-label="Not Interested">
+                            <NotInterestedIcon />
+                        </IconButton>
+                    </Grid>
+                    <Grid item>
+                        <IconButton className={classes.yesButtonStyle} onClick={handleYesClick} aria-label="Interested">
+                            <CheckIcon />
+                        </IconButton>
+                    </Grid>
                 </Grid>
             </Grid>
-          </Grid>
       );
 };
