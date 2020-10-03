@@ -84,7 +84,9 @@ function getMenuItems(arr) {
     return items; 
 }
 
-export default function StartSession() {
+export default function StartSession(props) {
+
+    const socket = props.socket;
 
     const classes = useStyles(); 
 
@@ -118,13 +120,14 @@ export default function StartSession() {
         setNumItems(newValue); 
     }
     const handleCreate = () => {
-        console.log("Submitted with activity: " + nameInput); 
-        console.log("submitted with activity: " + activityType); 
-        console.log("submitted with genre: " + activityGenres); 
-        console.log("submitted with price: " + activityPrice); 
-        console.log("submitted with keyword " + keywordInput); 
-        console.log("submitted with numItems" + numItems); 
+        const data = {
+            'name': nameInput,
+            'activityType': activityType,
+            'numSwipes': numItems
+        };
+        socket.emit('create_session', data);
     }
+
     const handleBlur = () => {
         console.log("handled blur with num: " + numItems); 
         if (numItems < 1) {
@@ -221,7 +224,6 @@ export default function StartSession() {
                         }}
                     />
                 </div>
-
 
                 <Button className={classes.createButton} variant="contained" onClick={handleCreate}>Create Session</Button>
 
