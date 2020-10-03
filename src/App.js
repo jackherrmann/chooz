@@ -1,8 +1,9 @@
 import React from 'react';
+import SwipePage from './components/swipe';
 
 
 function App() {
-  return null; 
+  return <SwipePage />
 }
 
 export default App;

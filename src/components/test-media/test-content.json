@@ -1,0 +1,10 @@
+{
+    "title": "PizzaHut", 
+
+    "type": "food", 
+
+    "chips": ["Price: $$", "Type: Chinese", "Distance: 3.1 mi", "Rating: 4/5"], 
+
+    "bodyText": "Kid-friendly chain known for its arcade games, pizza parties, play zones & mouse mascot."
+
+}
