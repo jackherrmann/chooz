@@ -13,7 +13,7 @@ import PreSession from './components/PreSession.js';
 
 
 function App() {
-  return PreSession(); 
+  return StartSession(); 
 }
 
 export default App;
