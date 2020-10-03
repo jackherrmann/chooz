@@ -1,8 +1,12 @@
-import React from 'react';
+// import React from 'react';
+// import Item from './components/Item.js'
+// import MainScreen from './components/Main.js'
+import StartSession from './components/StartSession.js'
+
 
 
 function App() {
-  return null; 
+  return StartSession(); 
 }
 
 export default App;
