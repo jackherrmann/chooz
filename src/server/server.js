@@ -12,13 +12,16 @@ const server = app.listen(port);
 const io = socketio(server);
 
 io.on('connection', socket => {
-    console.log('Player connected!', socket.id);
-  
-    // socket.on(Constants.MSG_TYPES.JOIN_SESSION, joinGame);
-    // socket.on(Constants.MSG_TYPES.INPUT, handleInput);
-    // socket.on('disconnect', onDisconnect);
+    console.log('User connected!', socket.id);
+    
+    socket.on(Constants.MSG_TYPES.JOIN_SESSION, joinSession);
+    socket.on(Constants.MSG_TYPES.INPUT, handleInput);
+    socket.on('disconnect', onDisconnect);
 });
 
 
-const session = new Session()
+
+const session = new Session();
+
+
 

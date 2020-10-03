@@ -3,9 +3,9 @@
 
 class Session {
 
-    constructor(members, category, swipes) {
+    constructor(choosers, category, swipes) {
         this.sockets = {}
-        this.members = members;
+        this.choosers = choosers;
         this.category = category;
         this.swipes = [];
 
@@ -19,7 +19,7 @@ class Session {
 
     addMember(socket, name) {
         this.sockets[socket.id] = socket;
-        this.members.push(name);
+        this.choosers.push(name);
 
         var dummy = [];
         for (var i = 0; i < swipes; i++) {
