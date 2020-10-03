@@ -21,8 +21,7 @@ io.on('connection', socket => {
     socket.on('user_finish', finishUser);
 });
 
-
-const sessions = {} //maps session 'socket room' to the actual session
+const sessions = {} //maps session 'socket room' name to the actual session
 
 function swipeHandler(name, room, direction) {
     currSesh = sessions[room];
