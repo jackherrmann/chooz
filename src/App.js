@@ -13,6 +13,9 @@ import PreSessionHost from './components/PreSessionHost.js';
 // eslint-disable-next-line
 import PreSessionGuest from './components/PreSessionGuest.js'; 
 
+import socketIOClient from "socket.io-client";
+
+const socket = socketIOClient("localhost:4000");
 
 function App() {
   return PreSessionGuest(); 

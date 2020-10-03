@@ -80,7 +80,9 @@ function getMenuItems(arr) {
     return items; 
 }
 
-export default function StartSession() {
+export default function StartSession(props) {
+
+    const socket = props.socket;
 
     const classes = useStyles(); 
 
@@ -121,6 +123,7 @@ export default function StartSession() {
         console.log("submitted with keyword: " + keywordInput); 
         console.log("submitted with numItems: " + numItems); 
     }
+
     const handleBlur = () => {
         if (numItems < 1) {
           setNumItems(1);
@@ -216,7 +219,6 @@ export default function StartSession() {
                         }}
                     />
                 </div>
-
 
                 <Button className={classes.createButton} variant="contained" onClick={handleCreate}>Create Session</Button>
 
