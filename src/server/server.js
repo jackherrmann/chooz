@@ -2,7 +2,6 @@ const express = require('express');
 const socketio = require('socket.io');
 
 const Session = require('./session');
-const Chooser = require('./chooser');
 
 const app = express();
 const http = require('http').Server(app);
