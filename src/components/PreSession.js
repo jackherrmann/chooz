@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     },
     cardTitle: {
         marginTop: "1rem", 
-        marginBottom: "2rem"
     }, 
     formControl: {
         marginBottom: "2rem", 
@@ -38,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "2rem"
     }, 
     joinButton: {
+        marginTop: "3rem", 
         marginBottom: "2rem"
     }, 
 }));
@@ -47,12 +46,10 @@ export default function PreSession() {
 
     const classes = useStyles(); 
 
-    var id = ""; 
-    const handleIdChange = (event) => {
-        id = event.target.value; 
-    }
-    const handleJoin = () => {
-        console.log("joined with id: " + id); 
+    var id = "000000"; 
+
+    const handleBegin = () => {
+        console.log("began with id: " + id); 
     }
 
     return (
@@ -65,9 +62,9 @@ export default function PreSession() {
 
                 <Typography className={classes.cardTitle} color="primary" variant="h4"> Wait for your friends...</Typography>
 
-                <TextField className={classes.keywordInput} id="keyword" label="Enter Session ID" defaultValue="" onChange={handleIdChange} />
+                <Typography className={classes.cardTitle} color="primary" variant="h4"> Session ID: {id}</Typography>
 
-                <Button className={classes.joinButton} variant="contained" onClick={handleJoin}>Begin Swiping</Button>
+                <Button className={classes.joinButton} variant="contained" onClick={handleBegin}>Begin Session</Button>
 
             </Card>
 

@@ -11,9 +11,12 @@ import JoinSession from './components/JoinSession.js';
 // eslint-disable-next-line
 import PreSession from './components/PreSession.js'; 
 
+import socketIOClient from "socket.io-client";
+
+const socket = socketIOClient("localhost:4000");
 
 function App() {
-  return PreSession(); 
+  return <StartSession socket = { socket }/>; 
 }
 
 export default App;
