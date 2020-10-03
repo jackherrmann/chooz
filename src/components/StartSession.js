@@ -13,6 +13,8 @@ import Select from '@material-ui/core/Select';
 // import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid'; 
+import Slider from '@material-ui/core/Slider'; 
 
 
 
@@ -56,6 +58,20 @@ const useStyles = makeStyles((theme) => ({
     createButton: {
         marginBottom: "2rem"
     }, 
+    sliderContainer: {
+        marginBottom: "2rem", 
+        display: 'flex'
+
+    }, 
+    sliderLabel: {
+    }, 
+    slider: {
+        width: '80%'
+    }, 
+    sliderNumber: {
+        marginLeft: "0.5rem", 
+        width: '17%', 
+    }
 }));
 
 
@@ -63,7 +79,6 @@ function getMenuItems(arr) {
     const items = []; 
     var item; 
     for (item in arr) {
-        console.log(arr[item]); 
         items.push(<MenuItem value={arr[item]}> {arr[item]} </MenuItem>); 
     }
     return items; 
@@ -76,12 +91,8 @@ export default function StartSession() {
     const [activityType, setActivityType] = React.useState(''); 
     const [activityGenres, setActivityGenre] = React.useState([]); 
     const [activityPrice, setActivityPrice] = React.useState(''); 
-    const [numItems, setNumItems] = React.useState(1); 
-    const numItemsArr = []; 
-    var i; 
-    for (i = 1; i <= 20; i++) {
-        numItemsArr.push(i); 
-    }
+    const [numItems, setNumItems] = React.useState(10); 
+
     var keywordInput = ""; 
     var nameInput = ""; 
     const handleNamechange = (event) => {
@@ -90,7 +101,7 @@ export default function StartSession() {
     const handleActivityChange = (event) => {
         setActivityType(event.target.value);
         setActivityGenre([]); 
-    };
+    }
     const handleGenresChange = (event) => {
         setActivityGenre(event.target.value); 
     }
@@ -100,6 +111,12 @@ export default function StartSession() {
     const handleKeywordChange = (event) => {
         keywordInput = event.target.value; 
     }
+    const handleNumItemsInputChange = (event) => {
+        setNumItems(event.target.value); 
+    }
+    const handleNumItemsSliderChange = (event, newValue) => {
+        setNumItems(newValue); 
+    }
     const handleCreate = () => {
         console.log("Submitted with activity: " + nameInput); 
         console.log("submitted with activity: " + activityType); 
@@ -108,9 +125,14 @@ export default function StartSession() {
         console.log("submitted with keyword " + keywordInput); 
         console.log("submitted with numItems" + numItems); 
     }
-    
-
-
+    const handleBlur = () => {
+        console.log("handled blur with num: " + numItems); 
+        if (numItems < 1) {
+          setNumItems(1);
+        } else if (numItems > 100) {
+          setNumItems(100);
+        }
+      };
 
     const genres = {
         "Food": ["Any", "Chinese", "Pizza", "Other"], 
@@ -176,18 +198,30 @@ export default function StartSession() {
 
                 <TextField className={classes.keywordInput} id="keyword" label="Enter Keyword (Optional)" defaultValue="" onChange={handleKeywordChange} />
 
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="NumItemsLabel" className={classes.selectLabel}> Select Number of Items </InputLabel>
-                    <Select
-                        labelId="NumItemsLabel"
-                        id="NumItems"
+                <InputLabel id="numItemsLabel" className={classes.sliderLabel}> Number of Items </InputLabel>
+                <div className={classes.sliderContainer}> 
+                    <Slider
+                            className={classes.slider}
+                            value={typeof numItems === 'number' ? numItems : 10}
+                            onChange={handleNumItemsSliderChange}
+                            aria-labelledby="numItemsLabel"
+                    />
+                    <Input
+                        className={classes.sliderNumber}
                         value={numItems}
-                        onChange={setNumItems}
-                        className={classes.select}
-                    >
-                        {getMenuItems(numItemsArr)}
-                    </Select>
-                </FormControl>
+                        margin="dense"
+                        onChange={handleNumItemsInputChange}
+                        onBlur={handleBlur}
+                        inputProps={{
+                        step: 1,
+                        min: 1,
+                        max: 100,
+                        type: 'number',
+                        'aria-labelledby': 'input-slider',
+                        }}
+                    />
+                </div>
+
 
                 <Button className={classes.createButton} variant="contained" onClick={handleCreate}>Create Session</Button>
 
