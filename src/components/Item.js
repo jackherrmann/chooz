@@ -108,9 +108,9 @@ export default function Item() {
 
       <CardContent className={classes.bodyTextHolder}>
           <Box flexDirection="row">
-            {/* <Avatar aria-label="itemAvatar">
+            <Avatar aria-label="itemAvatar">
                     <ItemTypeIcon/>
-            </Avatar> */}
+            </Avatar>
             <Typography gutterBottom variant="h5" component="h2">
                 {itemInfo.title}
             </Typography>

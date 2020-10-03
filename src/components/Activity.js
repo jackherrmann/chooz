@@ -1,11 +1,13 @@
 import React from 'react';
-import { Box, Typography, makeStyles } from '@material-ui/core';
+import { Box, Typography, CardMedia, Chip, makeStyles } from '@material-ui/core';
 
 // icons
+/*
 import MovieIcon from '@material-ui/icons/Movie'; 
 import FoodIcon from '@material-ui/icons/Fastfood'; 
 import EventIcon from '@material-ui/icons/Event'; 
 import UnknownIcon from '@material-ui/icons/Help'; 
+*/
 
 // local files
 import testContent from './test-media/test-content.json'; 
@@ -19,6 +21,7 @@ function getItemInfo() {
     return testContent; 
 }
 // end of the fake data
+/*
 function getIcon(itemType) {
     console.log(itemType); 
     switch(itemType) {
@@ -32,28 +35,33 @@ function getIcon(itemType) {
             return UnknownIcon; 
     }
 }
+*/
 
 const useStyles = makeStyles((theme) => ({
     root: {
       position:'relative',
-      width: '50%', 
-      borderRadius: "1rem", 
+      width: '50%',
       top: "2rem", 
       left: "2rem", 
     },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-      position: 'relative',
 
+    card: {
+        width: "100%",
+        height: "50%",
+        position: 'relative',
+        pb: '1rem',
+        pt: '1rem',
+        borderRadius: 8,
+        boxShadow: '0 8px 16px 0 #BDC9D7',
+        overflow: 'hidden',
     },
-    overlay: {
-        position: 'absolute',
-        left: '1rem',
-        bottom: '1rem',
-        color: 'black',
-        backgroundColor: 'black'
-     },
+
+    media: {
+        paddingTop: '56.25%', // 16:9
+        height: "100%", 
+        width: "100%",
+    },
+
     bodyTextHolder: {
         paddingBottom: "0rem", 
         borderWidth: "1rem", 
@@ -64,14 +72,21 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         flexWrap: 'wrap', 
-        marginBottom: 60, 
         borderWidth: 1, 
+        paddingBottom: '1rem'
     }, 
+
     overlay: {
-        position:'absolute',
-        bottom:'.5rem',
-        left:'1rem'
+        position:'relative',
+        bottom:'3rem',
+        left:'1rem',
+        color: '#ffffff',
+        fontSize: 30,
+        fontWeight: 400,
+        fontFamily: 'sans-serif',
+        fontStyle: 'normal',
     },
+
     chipStyle: {
         color: "primary", 
         marginLeft: 10, 
@@ -84,20 +99,37 @@ const useStyles = makeStyles((theme) => ({
 export default function Activity() {
     const itemImage = getItemImage();  
     const itemInfo = getItemInfo();
-    const ItemTypeIcon = getIcon(itemInfo.type); 
+    // const ItemTypeIcon = getIcon(itemInfo.type); 
     const classes = useStyles();
 
     return (
-        <Box>
-            <div class="container">
+        <Box flexDirection="column" display="flex" flexWrap="no-wrap">
+            <Box className={classes.card}>
                 {/* TODO: make the image normal size + add the rest of the fields */}
-                <img src={itemImage} />
-            </div>
-            <div className={classes.overlay} >
-                Text here
-            </div>
-                
+                <Box flexDirection="column">
+                    <Box>
+                        <CardMedia
+                            className={classes.media}
+                            image={itemImage}
+                            title="Activity image"
+                        />
+                        <Box className={classes.overlay} pb="0rem" >
+                            {itemInfo.title}
+                        </Box>
+                    </Box>
+                    <Box pl="1rem" pr="0.5rem">
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {itemInfo.bodyText}
+                        </Typography>
+                        <Box className={classes.chipContainer}>
+                            <Chip className={classes.chipStyle} label={itemInfo.chips[0]} />
+                            <Chip className={classes.chipStyle} label={itemInfo.chips[1]} />
+                            <Chip className={classes.chipStyle} label={itemInfo.chips[2]} />
+                            <Chip className={classes.chipStyle} label={itemInfo.chips[3]} />
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
         </Box>
-            
-        );
+    );
 }
