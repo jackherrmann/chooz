@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function PreSession() {
+export default function PreSessionGuest() {
 
     const classes = useStyles(); 
 
