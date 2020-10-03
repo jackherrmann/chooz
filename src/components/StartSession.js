@@ -1,19 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-// import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-// import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid'; 
 import Slider from '@material-ui/core/Slider'; 
 
 
@@ -112,7 +108,7 @@ export default function StartSession() {
         keywordInput = event.target.value; 
     }
     const handleNumItemsInputChange = (event) => {
-        setNumItems(event.target.value); 
+        setNumItems(event.target.value === '' ? '' : Number(event.target.value)); 
     }
     const handleNumItemsSliderChange = (event, newValue) => {
         setNumItems(newValue); 
@@ -122,11 +118,10 @@ export default function StartSession() {
         console.log("submitted with activity: " + activityType); 
         console.log("submitted with genre: " + activityGenres); 
         console.log("submitted with price: " + activityPrice); 
-        console.log("submitted with keyword " + keywordInput); 
-        console.log("submitted with numItems" + numItems); 
+        console.log("submitted with keyword: " + keywordInput); 
+        console.log("submitted with numItems: " + numItems); 
     }
     const handleBlur = () => {
-        console.log("handled blur with num: " + numItems); 
         if (numItems < 1) {
           setNumItems(1);
         } else if (numItems > 100) {

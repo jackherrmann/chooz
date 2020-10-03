@@ -48,11 +48,16 @@ export default function JoinSession() {
     const classes = useStyles(); 
 
     var id = ""; 
+    var name = ""; 
+    const handleNameChange = (event) => {
+        name = event.target.value; 
+    }
     const handleIdChange = (event) => {
         id = event.target.value; 
     }
     const handleJoin = () => {
         console.log("joined with id: " + id); 
+        console.log("joined with name: " + name); 
     }
 
     return (
@@ -66,6 +71,8 @@ export default function JoinSession() {
                 <Typography className={classes.cardTitle} color="primary" variant="h4"> Join a Session</Typography>
 
                 <TextField className={classes.keywordInput} id="keyword" label="Enter Session ID" defaultValue="" onChange={handleIdChange} />
+
+                <TextField className={classes.keywordInput} id="nameInput" label="Enter Your Name" defaultValue="" onChange={handleNameChange} />
 
                 <Button className={classes.joinButton} variant="contained" onClick={handleJoin}>Join Session</Button>
 

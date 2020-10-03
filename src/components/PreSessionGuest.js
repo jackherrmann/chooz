@@ -3,7 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List'; 
+import ListItem from '@material-ui/core/ListItem'; 
+import ListItemText from '@material-ui/core/ListItemText'; 
+
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -32,14 +36,24 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
         marginBottom: "2rem", 
     }, 
-    keywordInput: {
-        marginBottom: "2rem"
+    partListContainer: {
+        width: "50%", 
+        display: 'flex', 
+        justifyContent: "center", 
     }, 
-    joinButton: {
-        marginTop: "3rem", 
-        marginBottom: "2rem"
-    }, 
+    list: {
+        width: "50%", 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+    },
+    listItem: {
+        textAlign: "center", 
+    }
+
 }));
+
+
 
 
 export default function PreSession() {
@@ -48,9 +62,21 @@ export default function PreSession() {
 
     var id = "000000"; 
 
-    const handleBegin = () => {
-        console.log("began with id: " + id); 
+    var participants = ["Jack", "Eric", "Alex", "Xavier"]; 
+
+    const createPartList = () => {
+        var parts = [];  
+        for (let idx in participants) {
+            parts.push(
+                <ListItem className={classes.listItem}>
+                    <ListItemText primary={participants[idx]}/>
+                </ListItem>
+            ); 
+        }
+        return parts; 
     }
+
+    
 
     return (
 
@@ -60,11 +86,18 @@ export default function PreSession() {
 
             <Card className={classes.card}>
 
-                <Typography className={classes.cardTitle} color="primary" variant="h4"> Wait for your friends...</Typography>
+                <Typography className={classes.cardTitle} color="primary" variant="h4"> Waiting for the host to begin...</Typography>
 
                 <Typography className={classes.cardTitle} color="primary" variant="h4"> Session ID: {id}</Typography>
 
-                <Button className={classes.joinButton} variant="contained" onClick={handleBegin}>Begin Session</Button>
+                <Typography variant="h6" className={classes.partListTitle}> Participants: </Typography>
+                <div className={classes.partListContainer}>
+                    <List className={classes.list}>
+                    
+                        {createPartList(participants)}
+                    
+                    </List>
+                </div>
 
             </Card>
 
