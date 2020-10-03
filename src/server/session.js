@@ -1,15 +1,22 @@
-
 class Session {
 
-    constructor(category, num) {
+    constructor(category, numActivities) {
         this.host = "";
         this.choosers = {};
         this.category = category;
         this.swipes = {};
-        this.num = num;
+        this.numActivities = numActivities;
         this.results = {}; // maps activites to num of matches, take that number compare to total num of users
         this.activities = [];
         this.generateActivities(this.category);
+    }
+
+    getCategory() {
+        return this.category;
+    }
+
+    getNumActivites() {
+        return this.numActivities;
     }
 
     generateActivities(category) {
@@ -85,3 +92,5 @@ class Session {
         return matches;
     }
 }
+
+module.exports = { Session };

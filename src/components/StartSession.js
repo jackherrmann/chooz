@@ -63,13 +63,14 @@ function getMenuItems(arr) {
     const items = []; 
     var item; 
     for (item in arr) {
-        console.log(arr[item]); 
         items.push(<MenuItem value={arr[item]}> {arr[item]} </MenuItem>); 
     }
     return items; 
 }
 
-export default function StartSession() {
+export default function StartSession(props) {
+
+    const socket = props.socket;
 
     const classes = useStyles(); 
 
@@ -100,17 +101,17 @@ export default function StartSession() {
     const handleKeywordChange = (event) => {
         keywordInput = event.target.value; 
     }
-    const handleCreate = () => {
-        console.log("Submitted with activity: " + nameInput); 
-        console.log("submitted with activity: " + activityType); 
-        console.log("submitted with genre: " + activityGenres); 
-        console.log("submitted with price: " + activityPrice); 
-        console.log("submitted with keyword " + keywordInput); 
-        console.log("submitted with numItems" + numItems); 
+    const handleNumItemsChange = (event) => {
+        setNumItems(event.target.value);
     }
-    
-
-
+    const handleCreate = () => {
+        const data = {
+            'name': nameInput,
+            'activityType': activityType,
+            'numSwipes': numItems
+        };
+        socket.emit('create_session', data);
+    }
 
     const genres = {
         "Food": ["Any", "Chinese", "Pizza", "Other"], 
@@ -182,7 +183,7 @@ export default function StartSession() {
                         labelId="NumItemsLabel"
                         id="NumItems"
                         value={numItems}
-                        onChange={setNumItems}
+                        onChange={handleNumItemsChange}
                         className={classes.select}
                     >
                         {getMenuItems(numItemsArr)}
