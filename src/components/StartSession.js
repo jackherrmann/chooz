@@ -76,7 +76,17 @@ export default function StartSession() {
     const [activityType, setActivityType] = React.useState(''); 
     const [activityGenres, setActivityGenre] = React.useState([]); 
     const [activityPrice, setActivityPrice] = React.useState(''); 
+    const [numItems, setNumItems] = React.useState(1); 
+    const numItemsArr = []; 
+    var i; 
+    for (i = 1; i <= 20; i++) {
+        numItemsArr.push(i); 
+    }
     var keywordInput = ""; 
+    var nameInput = ""; 
+    const handleNamechange = (event) => {
+        nameInput = event.target.value; 
+    }
     const handleActivityChange = (event) => {
         setActivityType(event.target.value);
         setActivityGenre([]); 
@@ -91,10 +101,12 @@ export default function StartSession() {
         keywordInput = event.target.value; 
     }
     const handleCreate = () => {
+        console.log("Submitted with activity: " + nameInput); 
         console.log("submitted with activity: " + activityType); 
         console.log("submitted with genre: " + activityGenres); 
         console.log("submitted with price: " + activityPrice); 
         console.log("submitted with keyword " + keywordInput); 
+        console.log("submitted with numItems" + numItems); 
     }
     
 
@@ -118,6 +130,7 @@ export default function StartSession() {
 
                 <Typography className={classes.cardTitle} color="primary" variant="h4"> Create a Session</Typography>
 
+                <TextField className={classes.keywordInput} id="name" label="Your Name" defaultValue="" onChange={handleNamechange} />
 
                 <FormControl className={classes.formControl}>
                     <InputLabel id="ActivityTypeLabel" className={classes.selectLabel}> Select Activity </InputLabel>
@@ -163,8 +176,23 @@ export default function StartSession() {
 
                 <TextField className={classes.keywordInput} id="keyword" label="Enter Keyword (Optional)" defaultValue="" onChange={handleKeywordChange} />
 
+                <FormControl className={classes.formControl}>
+                    <InputLabel id="NumItemsLabel" className={classes.selectLabel}> Select Number of Items </InputLabel>
+                    <Select
+                        labelId="NumItemsLabel"
+                        id="NumItems"
+                        value={numItems}
+                        onChange={setNumItems}
+                        className={classes.select}
+                    >
+                        {getMenuItems(numItemsArr)}
+                    </Select>
+                </FormControl>
 
                 <Button className={classes.createButton} variant="contained" onClick={handleCreate}>Create Session</Button>
+
+
+                
 
 
 
