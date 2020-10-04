@@ -26,7 +26,7 @@ class Session {
         console.log(this.category)
         if (this.category == "movies") {
 
-        } else if (this.category == "Food") {
+        } else if (this.category == "Restaurants") {
             yelpSearch(this.category, this.location.latitude, this.location.longitude, this.params)
             .then((businesses) => {
                 console.log(businesses[0]);
