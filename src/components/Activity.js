@@ -1,43 +1,7 @@
-import React from 'react';
-import { Box, Typography, CardMedia, Chip, makeStyles } from '@material-ui/core';
+import React, { Component } from 'react';
+import { Box, Typography, CardMedia, Chip, withStyles } from '@material-ui/core';
 
-// icons
-/*
-import MovieIcon from '@material-ui/icons/Movie'; 
-import FoodIcon from '@material-ui/icons/Fastfood'; 
-import EventIcon from '@material-ui/icons/Event'; 
-import UnknownIcon from '@material-ui/icons/Help'; 
-*/
-
-// local files
-import testContent from './test-media/test-content.json'; 
-import testImage from './test-media/testPicture.jpg'; 
-
-// these are just till we have real data from APIs
-function getItemImage() {
-    return testImage; 
-}
-function getItemInfo() {
-    return testContent; 
-}
-// end of the fake data
-/*
-function getIcon(itemType) {
-    console.log(itemType); 
-    switch(itemType) {
-        case 'food': 
-            return FoodIcon; 
-        case 'movie':
-            return MovieIcon; 
-        case 'event': 
-            return EventIcon; 
-        default: 
-            return UnknownIcon; 
-    }
-}
-*/
-
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
     root: {
       position:'relative',
       width: '50%',
@@ -94,42 +58,56 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 5, 
         marginBottom: 5, 
     }, 
-  }));
+  });
 
-export default function Activity() {
-    const itemImage = getItemImage();  
-    const itemInfo = getItemInfo();
-    // const ItemTypeIcon = getIcon(itemInfo.type); 
-    const classes = useStyles();
+class Activity extends Component {
+    constructor(props) {
+        super(props);
 
-    return (
-        <Box flexDirection="column" display="flex" flexWrap="no-wrap">
-            <Box className={classes.card}>
-                {/* TODO: make the image normal size + add the rest of the fields */}
-                <Box flexDirection="column">
-                    <Box>
-                        <CardMedia
-                            className={classes.media}
-                            image={itemImage}
-                            title="Activity image"
-                        />
-                        <Box className={classes.overlay} pb="0rem" >
-                            {itemInfo.title}
+        this.state = {
+            name: props.name,
+            cuisine: props.cuisine,
+            imageUrl: props.image_url,
+            location: props.location,
+            rating: props.rating,
+        };
+    }
+    
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <Box flexDirection="column" display="flex" flexWrap="no-wrap">
+                <Box className={classes.card}>
+                    {/* TODO: make the image normal size + add the rest of the fields */}
+                    <Box flexDirection="column">
+                        <Box>
+                            <CardMedia
+                                className={classes.media}
+                                src={this.state.imageUrl}
+                                title="Activity image"
+                            />
+                            <Box className={classes.overlay} pb="0rem" >
+                                {this.state.name}
+                            </Box>
                         </Box>
-                    </Box>
-                    <Box pl="1rem" pr="0.5rem">
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {itemInfo.bodyText}
-                        </Typography>
-                        <Box className={classes.chipContainer}>
-                            <Chip className={classes.chipStyle} label={itemInfo.chips[0]} />
-                            <Chip className={classes.chipStyle} label={itemInfo.chips[1]} />
-                            <Chip className={classes.chipStyle} label={itemInfo.chips[2]} />
-                            <Chip className={classes.chipStyle} label={itemInfo.chips[3]} />
+                        <Box pl="1rem" pr="0.5rem">
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {this.state.location}
+                            </Typography>
+                            <Box className={classes.chipContainer}>
+                                <Chip className={classes.chipStyle} label={'Rating: ' + this.state.rating} />
+                                <Chip className={classes.chipStyle} label={'Cuisine: ' + this.state.cuisine} />
+                                {/* <Chip className={classes.chipStyle} label={itemInfo.chips[2]} />
+                                <Chip className={classes.chipStyle} label={itemInfo.chips[3]} /> */}
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
             </Box>
-        </Box>
-    );
+        );
+    }
+    
 }
+
+export default withStyles(styles, { withTheme: true })(Activity);
