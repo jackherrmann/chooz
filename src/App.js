@@ -31,6 +31,7 @@ function App() {
       <Router>
         <Route exact path = '/' render={(props) => {
           if (socket) {
+            socket.emit('prepare_disconnect', socket.sessionId);
             socket.disconnect();
           }
           var newSocket = socketIOClient("localhost:4000");
