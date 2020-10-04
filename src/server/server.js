@@ -1,7 +1,6 @@
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
-const { default: StartSession } = require('../components/StartSession');
 
 const { Session } = require('./session');
 
