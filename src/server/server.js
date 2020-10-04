@@ -1,6 +1,7 @@
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
+const { default: StartSession } = require('../components/StartSession');
 
 const { Session } = require('./session');
 
@@ -15,11 +16,36 @@ const io = socketio(server);
 io.on('connection', socket => {
     console.log('User connected!', socket.id);
 
-    socket.on('create_session', (data) => {
-        const { name, activityType, numSwipes } = data;
-        const sessionId = createSession(socket, name, activityType, numSwipes);
-        const session = sessions[sessionId];
-        console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
+    io.on('connection', socket => {
+    console.log('User connected!', socket.id);
+
+    socket.on('create_session', (data) => {
+        const { name, activityType, numSwipes } = data;
+        const sessionId = createSession(socket, name, activityType, numSwipes);
+        const session = sessions[sessionId];
+        console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
+        const emit_data = {
+            'sessionId': sessionId
+        }
+        socket.emit('created_session', emit_data);
+    });
+
+    socket.on('join_session', (data) => {
+        const { name, sessionId } = data;
+        const session = sessions[sessionId];
+        joinSession(socket, name, sessionId);
+        console.log(`Joined session ${sessionId}, which now has ${session.getNumMembers()} members`);
+        const emit_data = {
+            'username': name
+        }
+        socket.to(sessionId).emit('user_joined_session', emit_data);
+    })
+    //socket.on('swipe', swipeHandler);
+    //socket.on('user_finish', finishUser);
+});
+
+    socket.on('start_session', () => {
+        startSession()
     });
 
     socket.on('join_session', (data) => {
@@ -54,7 +80,7 @@ function joinSession(socket, name, room) {
     socket.join(room);
 }
 
-function createSession(socket, name, category, swipes, location) {
+createSession(socket, name, category, swipes, location) {
     const findCode = (Math.floor(Math.random()*100000+1));
 
     while (findCode.toString() in sessions) {
@@ -63,16 +89,24 @@ function createSession(socket, name, category, swipes, location) {
 
     const code = findCode.toString();
 
-    const newSesh = new Session(category, swipes); //create new session
-
+    const newSesh = new Session(category, swipes, location); //create new session
+    console.log("adding mem");
     newSesh.setHost(name);
     newSesh.addMember(name);
 
+    console.log(newSesh.category);
+    
     sessions[code] = newSesh; //add session to session dict
 
     socket.join(code);
-
+    
+    const session = sessions[sessionId];
+    console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
     return code;
+}
+
+async function startSession() {
+    await newSesh.generateActivities();
 }
 
 server.listen(port, function() {

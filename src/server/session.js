@@ -1,8 +1,9 @@
-// import {yelpSearch} from '../yelp-api/yelpSearch';
+const {yelpSearch} = require('../yelp-api/yelpSearch');
 
 class Session {
 
     constructor(category, numActivities, location) {
+        console.log("making session");
         this.host = "";
         this.choosers = {};
         this.category = category;
@@ -11,7 +12,7 @@ class Session {
         this.results = {}; // maps activites to num of matches, take that number compare to total num of users
         this.activities = [];
         this.location = location
-        this.generateActivities(this.category);
+        console.log("finished assigning fields")
     }
 
     getCategory() {
@@ -26,50 +27,57 @@ class Session {
         return Object.keys(this.choosers).length;
     }
 
-    generateActivities(category) {
-        if (category == "movies") {
+    async generateActivities() {
+        console.log("in async")
+        console.log(this.category)
+        if (this.category == "movies") {
 
-        } else if (category == "working...") {
-            const [businesses, amountResults, searchParams, setSearchParams] 
-                = yelpSearch(category, location.latitude, location.longitude);
+        } else if (this.category == "Food") {
+            yelpSearch(this.category, this.location.latitude, this.location.longitude)
+            .then((businesses) => {
+                console.log(businesses[0]);
+                var c = 0;
+                
+                for (var b of businesses) { 
+                    if (c == this.numActivities) {
+                        break;
+                    }
+                    console.log("b below");
+                    console.log(b);
+                    const activity = {
+                        name : b.name,
+                        cuisine : b.categories[0].title,
+                        url : b.url,
+                        image_url : b.image_url,
+                        rating : b.rating,
+                        price : b.price,
+                        location : b.location.display_address[0] + ", " + b.location.display_address[1],
+                    }
 
-            var c = 0;
+                    this.activities.push(activity);
+                    c++;
+                }
+
+                for (var name in this.choosers) {
+                    var dummy = [];
+                    for (var i = 0; i < c + 1; i++) {
+                        dummy.push(-1);
+                    }
+        
+                    this.swipes[name] = dummy;
+                }
+                
+            })
+
             
-            for (b in businesses) { 
-                if (c == this.numActivities) {
-                    break;
-                }
-
-                const activity = {
-                    name : b.name,
-                    cuisine : b.categories[0].title,
-                    url : b.url,
-                    image_url : b.image_url,
-                    rating : b.rating,
-                    price : b.price,
-                    location : b.location.display_address,
-                }
-
-                this.activities.push(activity);
-                c++;
-            }
-
-            for (name in this.choosers) {
-                var dummy = [];
-                for (var i = 0; i < c + 1; i++) {
-                    dummy.push(-1);
-                }
-    
-                this.swipes[name] = dummy;
-            }
             
             // name, price, cuisine, type = food, rating, 
         } else if (category == "events") {
 
         }
-
-        //implement apis
-        return -1; 
+    
+            //implement apis
+        
     }
 
     addMember(name) {

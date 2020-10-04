@@ -148,8 +148,11 @@ class StartSession extends Component {
                 'name': nameInput,
                 'activityType': this.state.activityType,
                 'numSwipes': this.state.numItems,
-                'latitude': this.state.latitude,
-                'longitude': this.state.longitude,
+                'location': {
+                    'latitude': this.state.latitude,
+                    'longitude': this.state.longitude,
+                }
+                
             };
             socket.emit('create_session', data);
         }
