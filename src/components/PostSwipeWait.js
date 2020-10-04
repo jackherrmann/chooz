@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { CircularProgress } from '@material-ui/core';
 import List from '@material-ui/core/List'; 
 import ListItem from '@material-ui/core/ListItem'; 
 import ListItemText from '@material-ui/core/ListItemText'; 
@@ -29,14 +30,21 @@ const styles = (theme) => ({
         flexWrap: 'wrap', 
         flexDirection: 'column', 
         marginTop: "1rem", 
+        justifyContent: 'space-around',
         alignContent: 'center', 
+        alignItems: 'center',
+        marginBottom: '1rem',
     },
     cardTitle: {
         marginTop: "1rem", 
     }, 
     formControl: {
         marginBottom: "2rem", 
-    }
+    },
+    spacedContainer: {
+        marginBottom: '1rem',
+        marginTop: '1rem',
+    },
 
 });
 
@@ -75,7 +83,11 @@ class PostSwipeWait extends React.Component {
                 <Card className={classes.card}>
     
                     <Typography className={classes.cardTitle} color="primary" variant="h4"> Waiting for your friends to finish...</Typography>
-    
+
+                    <Container className={classes.spacedContainer}>
+                        <CircularProgress color="secondary" marginBottom="1rem" marginTop="1rem" />
+                    </Container>
+
                 </Card>
     
             </Container>
