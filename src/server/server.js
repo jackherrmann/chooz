@@ -78,9 +78,8 @@ io.on('connection', socket => {
             }
 
             // return newSesh.activities;
-
-            console.log(emit_data.activities);
             socket.to(room).emit('started_session', newSesh.activities);
+            socket.emit('started_session', newSesh.activities);
         });
       
         const test1 = {

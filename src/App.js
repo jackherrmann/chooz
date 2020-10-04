@@ -20,7 +20,7 @@ import SwipePage from './components/swipe';
 
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient("http://choozserver-env.eba-822ytfjc.us-east-2.elasticbeanstalk.com");
+const socket = socketIOClient("localhost:4000");
 
 function App() {
   return (
