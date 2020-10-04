@@ -63,7 +63,7 @@ io.on('connection', socket => {
             const emit_results = {
                 matches : matches
             }
-            socket.emit('finished_all', emit_results);
+            socket.to(room).emit('finished_all', emit_results);
         }
     });
 
