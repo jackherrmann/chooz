@@ -11,11 +11,14 @@ const server = http.createServer(app);
 
 const io = socketio(server);
 
+const {yelpSearch} = require('../yelp-api/yelpSearch');
+
 io.on('connection', socket => {
     console.log('User connected!', socket.id);
 
     socket.on('create_session', (data) => {
         const { name, activityType, numSwipes, location, params } = data;
+        console.log(data)
         const sessionId = createSession(socket, name, activityType, numSwipes, location, params);
         const emit_data = {
             'sessionId': sessionId
@@ -41,11 +44,39 @@ io.on('connection', socket => {
     });
 
     socket.on('start_session', (room) => {
-        startSession(room)
-        .then(activities => {
-            const emit_data = {
-                activities: activities,
+
+        const newSesh = sessions[room];
+
+        yelpSearch(newSesh.category, newSesh.location.latitude, newSesh.location.longitude, newSesh.params)
+        .then((businesses) => {
+            console.log('first business');
+            var c = 0;
+            
+            for (var b of businesses) { 
+                if (c == newSesh.numActivities) {
+                    break;
+                }
+                
+                const activity = {
+                    name : b.name,
+                    cuisine : b.categories[0].title,
+                    url : b.url,
+                    image_url : b.image_url,
+                    rating : b.rating,
+                    price : b.price,
+                    location : b.location.display_address[0] + ", " + b.location.display_address[1],
+                }
+
+                newSesh.activities.push(activity);
+                c++;
             }
+
+            // return newSesh.activities;
+
+            const emit_data = {
+                activities: newSesh.activities,
+            }
+            console.log(emit_data.activities);
             socket.to(room).emit('started_session', emit_data);
         });
     });
@@ -100,14 +131,6 @@ function createSession(socket, name, category, swipes, location, params) {
     socket.join(code);
 
     return code;
-}
-
-async function startSession(room) {
-    await sessions[room].generateActivities();
-
-    const activities = newSesh.getActivities();
-
-    return activities;
 }
 
 function processSwipes(room, name, userSwipes) {

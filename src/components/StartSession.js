@@ -86,7 +86,7 @@ class StartSession extends Component {
         this.state = {
           count: 0,
           activityType: '',
-          activityGenres: [], 
+          activityGenre: '', 
           activityGenre: '',
           activityPrice: '',
           numItems: 10,
@@ -128,8 +128,8 @@ class StartSession extends Component {
             this.setState({ activityType: event.target.value });
             this.setState({ activityGenres: [] });
         }
-        const handleGenresChange = (event) => {
-            this.setState({ activityGenres: event.target.value });
+        const handleGenreChange = (event) => {
+            this.setState({ activityGenre: event.target.value });
         }
         const handlePriceChange = (event) => {
             this.setState({ activityPrice: event.target.value });
@@ -153,10 +153,9 @@ class StartSession extends Component {
                     'longitude': this.state.longitude,
                 },
                 'params': {
-                    'genre' : this.state.activityGenre,
+                    'cuisine' : this.state.activityGenre,
                     'price' : this.state.activityPrice,
                 }
-                
             };
             socket.emit('create_session', data);
         }
@@ -208,12 +207,11 @@ class StartSession extends Component {
                         <Select
                                 labelId="ActivityGenreLabel"
                                 id="ActivityGenre"
-                                value={this.state.activityGenres}
-                                onChange={handleGenresChange}
+                                value={this.state.activityGenre}
+                                onChange={handleGenreChange}
                                 className={classes.select}
-                                multiple
                                 input={<Input />}
-                                renderValue={(selected) => selected.join(', ')}
+                                renderValue={(selected) => selected}
                             >
                                 {getMenuItems(genres[this.state.activityType])}
                             </Select>
