@@ -14,6 +14,10 @@ class Session {
         this.generateActivities(this.category);
     }
 
+    getMembers() {
+        return Object.keys(this.choosers);
+    }
+
     getCategory() {
         return this.category;
     }

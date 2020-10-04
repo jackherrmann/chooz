@@ -1,15 +1,16 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List'; 
 import ListItem from '@material-ui/core/ListItem'; 
 import ListItemText from '@material-ui/core/ListItemText'; 
+import { render } from '@testing-library/react';
 
 
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
     container: {
         width: '100%', 
         display: 'flex', 
@@ -51,25 +52,47 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center", 
     }
 
-}));
+});
 
 
 
 
-export default function PreSessionGuest() {
+class PreSessionGuest extends React.Component {
 
-    const classes = useStyles(); 
+    constructor(props) {
+        super(props);
+        this.state = {
+            sessionId: "",
+            participants: []
+        }
+        this.socket = props.socket;
+    }
 
-    var id = "000000"; 
+    componentDidMount() {
+        this.socket.on('initial_joined_session', data => {
+            const {sessionId, participants} = data;
+            console.log ("received", sessionId);
+            this.setState({
+                sessionId: sessionId,
+                participants: participants
+            })
+        })
+        this.socket.on('user_joined_session', data => {
+            const {username} = data;
+            console.log("received ", username);
+            this.setState({
+                participants: this.state.participants.concat(username)
+            })
+        })
+        console.log(this.state.participants);
+    }
 
-    var participants = ["Jack", "Eric", "Alex", "Xavier"]; 
-
-    const createPartList = () => {
+    createPartList = () => {
         var parts = [];  
-        for (let idx in participants) {
+        for (let idx in this.state.participants) {
             parts.push(
-                <ListItem className={classes.listItem}>
-                    <ListItemText primary={participants[idx]}/>
+                <ListItem>
+                    <ListItemText primary={this.state.participants[idx]}/>
                 </ListItem>
             ); 
         }
@@ -77,30 +100,35 @@ export default function PreSessionGuest() {
     }
 
     
+    render() {
+        const {classes} = this.props;
 
-    return (
+        return (
 
-        <Container className={classes.container}>
-
-            <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
-
-            <Card className={classes.card}>
-
-                <Typography className={classes.cardTitle} color="primary" variant="h4"> Waiting for the host to begin...</Typography>
-
-                <Typography className={classes.cardTitle} color="primary" variant="h4"> Session ID: {id}</Typography>
-
-                <Typography variant="h6" className={classes.partListTitle}> Participants: </Typography>
-                <div className={classes.partListContainer}>
-                    <List className={classes.list}>
-                    
-                        {createPartList(participants)}
-                    
-                    </List>
-                </div>
-
-            </Card>
-
-        </Container>
-    ); 
+            <Container className={classes.container}>
+    
+                <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
+    
+                <Card className={classes.card}>
+    
+                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Waiting for the host to begin...</Typography>
+    
+                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Session ID: {this.state.sessionId}</Typography>
+    
+                    <Typography variant="h6" className={classes.partListTitle}> Participants: </Typography>
+                    <div className={classes.partListContainer}>
+                        <List className={classes.list}>
+                        
+                            {this.createPartList(this.state.participants)}
+                        
+                        </List>
+                    </div>
+    
+                </Card>
+    
+            </Container>
+        ); 
+    }
 }
+
+export default withStyles(styles, {withTheme: true})(PreSessionGuest);

@@ -34,6 +34,12 @@ function App() {
         <Route path='/join' render={(props) => (
           <JoinSession socket={socket} />
         )} />
+        <Route path='/presession-host' render={(props) => (
+          <PreSessionHost {...props} socket={socket} />
+        )} />
+        <Route path='/presession-guest' render={(props) => (
+          <PreSessionGuest {...props} socket={socket}/>
+        )} />
       </Router>
     </div>
   ); 

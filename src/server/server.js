@@ -19,13 +19,27 @@ io.on('connection', socket => {
         const sessionId = createSession(socket, name, activityType, numSwipes);
         const session = sessions[sessionId];
         console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
+        const emit_data = {
+            'sessionId': sessionId
+        }
+        socket.emit('created_session', emit_data);
     });
 
     socket.on('join_session', (data) => {
         const { name, sessionId } = data;
-        const session = sessions[sessionId];
         joinSession(socket, name, sessionId);
-        console.log(`Joined session ${sessionId}, which now has ${session.getNumMembers()} members`);
+        console.log(`Joined session`);
+        const emit_data = {
+            'username': name
+        }
+        socket.to(sessionId).emit('user_joined_session', emit_data);
+
+        const session = sessions[sessionId];
+        const emit_data_to_joiner = {
+            'sessionId': sessionId,
+            'participants': session.getMembers()
+        }
+        socket.emit('initial_joined_session', emit_data_to_joiner);
     })
     //socket.on('swipe', swipeHandler);
     //socket.on('user_finish', finishUser);
