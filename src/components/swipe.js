@@ -53,7 +53,7 @@ class SwipePage extends Component {
 
     handleYesClick = () => {
         console.log("Yes was clicked wooo"); 
-        this.setState({ swipes: swipes_c });
+        this.setState({ swipes: this.state.swipes.concat(1) });
         this.setState({ idx: this.state.idx + 1 });
     }
     
