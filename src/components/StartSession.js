@@ -15,6 +15,8 @@ import Slider from '@material-ui/core/Slider';
 
 import { Link } from 'react-router-dom';
 
+import jQuery from 'jquery';
+
 const styles = theme => ({
     container: {
         width: '100%', 
@@ -107,21 +109,20 @@ class StartSession extends Component {
     }
 
     componentDidMount() {
-        const setLocationState = (lat, long) => {
-            this.setState({ latitude: lat });
-            this.setState({ longitude: long });
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                setLocationState(position.coords.latitude, position.coords.longitude)
-            },
-            function(error) {
-                console.error("Error Code = " + error.code + " - " + error.message);
+        jQuery.getJSON("http://ip-api.com/json", (data, status) => {
+            if (status === "success") {
+                this.setState({
+                    latitude: data.lat,
+                    longitude: data.lon
+                });
             }
-        );
-    }
+            else {
+                alert("Location failed");
+            }
+        })
 
+        // this.tryAPIGeolocation();
+    }
 
     render () {
         const socket = this.props.socket;
