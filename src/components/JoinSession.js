@@ -1,14 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
     container: {
         width: '100%', 
         display: 'flex', 
@@ -42,53 +42,71 @@ const useStyles = makeStyles((theme) => ({
     joinButton: {
         marginBottom: "2rem"
     }, 
-}));
+});
 
 
-export default function JoinSession(props) {
+class JoinSession extends React.Component {
 
-    const socket = props.socket;
-
-    const classes = useStyles(); 
-
-    var id = ""; 
-    var name = "";
-    const handleNameChange = (event) => {
-        name = event.target.value;
+    constructor(props) {
+        super(props);
+        this.state = {
+            sessionId: "",
+            name: ""
+        }
+        this.socket = props.socket;
     }
-    const handleIdChange = (event) => {
-        id = event.target.value; 
+
+    componentDidMount() {
+        this.socket.on('join_attempt_result', result => {
+            if (result) {
+                this.props.history.push('/presession-guest');
+            }
+            else {
+                window.alert("Session does not exist");
+            }
+        })
     }
-    const handleJoin = () => {
+
+    handleNameChange = (event) => {
+        this.setState({name: event.target.value});
+    }
+    handleIdChange = (event) => {
+        this.setState({sessionId: event.target.value});
+    }
+    handleJoin = () => {
         console.log('joining');
         const data = {
-            'name': name,
-            'sessionId': id
+            'name': this.state.name,
+            'sessionId': this.state.sessionId
         }
-        socket.emit('join_session', data);
-        console.log("joined with id: " + id); 
-        console.log("joined with name: " + name); 
+        this.socket.emit('join_session', data);
     }
 
-    return (
+    render() {
+        const{classes} = this.props;
 
-        <Container className={classes.container}>
+        return (
 
-            <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
+            <Container className={classes.container}>
 
-            <Card className={classes.card}>
+                <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
 
-                <Typography className={classes.cardTitle} color="primary" variant="h4"> Join a Session</Typography>
+                <Card className={classes.card}>
 
-                <TextField className={classes.keywordInput} id="nameInput" label="Enter Your Name" defaultValue="" onChange={handleNameChange} />
+                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Join a Session</Typography>
 
-                <TextField className={classes.keywordInput} id="sessionId" label="Enter Session ID" defaultValue="" onChange={handleIdChange} />
+                    <TextField className={classes.keywordInput} id="nameInput" label="Enter Your Name" defaultValue="" onChange={this.handleNameChange} />
 
-                <Link to='/presession-guest'>
-                    <Button className={classes.joinButton} variant="contained" onClick={handleJoin}>Join Session</Button>
-                </Link>
-            </Card>
+                    <TextField className={classes.keywordInput} id="sessionId" label="Enter Session ID" defaultValue="" onChange={this.handleIdChange} />
 
-        </Container>
-    ); 
+                    <Button className={classes.joinButton} variant="contained" onClick={this.handleJoin}>Join Session</Button>
+
+                </Card>
+
+            </Container>
+        ); 
+    }
+
 }
+
+export default withRouter(withStyles(styles, {withTheme: true})(JoinSession));

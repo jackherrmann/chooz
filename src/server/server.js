@@ -26,19 +26,26 @@ io.on('connection', socket => {
 
     socket.on('join_session', (data) => {
         const { name, sessionId } = data;
-        joinSession(socket, name, sessionId);
-        console.log(`Joined session`);
-        const emit_data = {
-            'username': name
+        const joinResult = joinSession(socket, name, sessionId);
+        console.log(joinResult);
+        if (joinResult == -1) {
+            socket.emit('join_attempt_result', false);
         }
-        socket.to(sessionId).emit('user_joined_session', emit_data);
+        else {
+            const emit_data = {
+                'username': name
+            }
+            socket.to(sessionId).emit('user_joined_session', emit_data);
+            
+            socket.emit('join_attempt_result', true);
 
-        const session = sessions[sessionId];
-        const emit_data_to_joiner = {
-            'sessionId': sessionId,
-            'participants': session.getMembers()
+            const session = sessions[sessionId];
+            const emit_data_to_joiner = {
+                'sessionId': sessionId,
+                'participants': session.getMembers()
+            }
+            socket.emit('initial_joined_session', emit_data_to_joiner);
         }
-        socket.emit('initial_joined_session', emit_data_to_joiner);
     });
 
     socket.on('start_session', (room) => {
@@ -75,10 +82,14 @@ const sessions = {}; //maps session 'socket room' name to the actual session
 
 
 function joinSession(socket, name, room) {
+    if (!(room in sessions)) {
+        return -1;
+    }
     currSesh = sessions[room];
     currSesh.addMember(name);
 
     socket.join(room);
+    return room;
 };
 
 function createSession(socket, name, category, swipes, location) {
