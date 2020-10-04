@@ -62,14 +62,6 @@ const styles = (theme) => ({
 class Activity extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            name: props.name,
-            cuisine: props.cuisine,
-            imageUrl: props.imageUrl,
-            location: props.location,
-            rating: props.rating,
-        };
     }
     
     render() {
@@ -81,18 +73,18 @@ class Activity extends Component {
                     {/* TODO: make the image normal size + add the rest of the fields */}
                     <Box flexDirection="column">
                         <Box>
-                            <CardMedia component="img" className={classes.media} src={this.state.imageUrl} />
+                            <CardMedia component="img" className={classes.media} src={this.props.imageUrl} />
                             <Box className={classes.overlay} pb="0rem" >
-                                {this.state.name}
+                                {this.props.name}
                             </Box>
                         </Box>
                         <Box pl="1rem" pr="0.5rem">
                             <Typography variant="body2" color="textSecondary" component="p">
-                                {this.state.location}
+                                {this.props.location}
                             </Typography>
                             <Box className={classes.chipContainer}>
-                                <Chip className={classes.chipStyle} label={'Rating: ' + this.state.rating} />
-                                <Chip className={classes.chipStyle} label={'Cuisine: ' + this.state.cuisine} />
+                                <Chip className={classes.chipStyle} label={'Rating: ' + this.props.rating} />
+                                <Chip className={classes.chipStyle} label={'Cuisine: ' + this.props.cuisine} />
                                 {/* <Chip className={classes.chipStyle} label={itemInfo.chips[2]} />
                                 <Chip className={classes.chipStyle} label={itemInfo.chips[3]} /> */}
                             </Box>
