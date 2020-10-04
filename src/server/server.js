@@ -102,9 +102,14 @@ io.on('connection', socket => {
         }
     });
 
-    socket.on('disconnect', (room) => {
-        onDisconnect(room);
-    });
+    socket.on('prepare_disconnect', (room) => {
+        onDisconnect(room, socket);
+    })
+
+    //socket.on('disconnect', (room) => {
+        //onDisconnect(room, socket);
+        //console.log("disconnected")
+    //});
     //socket.on('user_finish', finishUser);
 });
 
@@ -159,8 +164,9 @@ function getMatches(room) {
     return currSesh.getMatches();
 }
 
-function onDisconnect(room) {
+function onDisconnect(room, socket) {
     delete sessions[room];
+    socket.leave(room);
 }
 
 server.listen(port, function() {

@@ -84,6 +84,7 @@ class PreSessionHost extends React.Component {
             })
         })
         this.socket.on('started_session', activities => {
+            this.socket.sessionId = this.state.sessionId;
             this.props.history.push({
                 pathname: '/session',
                 state: {
