@@ -13,7 +13,9 @@ import StartSession from './components/StartSession.js';
 // eslint-disable-next-line
 import JoinSession from './components/JoinSession.js'; 
 // eslint-disable-next-line
-import PreSession from './components/PreSession.js'; 
+import PreSessionHost from './components/PreSessionHost.js'; 
+// eslint-disable-next-line
+import PreSessionGuest from './components/PreSessionGuest.js'; 
 
 import socketIOClient from "socket.io-client";
 
