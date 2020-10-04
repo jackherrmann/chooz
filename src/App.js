@@ -16,6 +16,8 @@ import JoinSession from './components/JoinSession.js';
 import PreSessionHost from './components/PreSessionHost.js'; 
 // eslint-disable-next-line
 import PreSessionGuest from './components/PreSessionGuest.js'; 
+// eslint-disable-next-line
+import Results from './components/Results.js';
 
 import socketIOClient from "socket.io-client";
 
@@ -33,6 +35,9 @@ function App() {
         )}/>
         <Route path='/join' render={(props) => (
           <JoinSession socket={socket} />
+        )} />
+        <Route path='/finish' render={(props) => (
+          <Results socket={socket} />
         )} />
       </Router>
     </div>
