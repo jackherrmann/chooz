@@ -1,6 +1,7 @@
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
+const { default: StartSession } = require('../components/StartSession');
 
 const { Session } = require('./session');
 
@@ -67,7 +68,7 @@ function joinSession(socket, name, room) {
     socket.join(room);
 }
 
-function createSession(socket, name, category, swipes, location) {
+createSession(socket, name, category, swipes, location) {
     const findCode = (Math.floor(Math.random()*100000+1));
 
     while (findCode.toString() in sessions) {
@@ -76,16 +77,20 @@ function createSession(socket, name, category, swipes, location) {
 
     const code = findCode.toString();
 
-    const newSesh = new Session(category, swipes); //create new session
-
+    const newSesh = new Session(category, swipes, location); //create new session
+    console.log("adding mem");
     newSesh.setHost(name);
     newSesh.addMember(name);
 
+    console.log(newSesh.category);
+    
     sessions[code] = newSesh; //add session to session dict
 
     socket.join(code);
+}
 
-    return code;
+async function startSession() {
+    await newSesh.generateActivities();
 }
 
 server.listen(port, function() {
