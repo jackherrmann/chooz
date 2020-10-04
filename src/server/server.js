@@ -11,7 +11,7 @@ const server = http.createServer(app);
 
 const io = socketio(server);
 
-const {yelpSearch} = require('../yelp-api/yelpSearch');
+const {yelpSearch} = require('./yelp-api/yelpSearch');
 
 io.on('connection', socket => {
     console.log('User connected!', socket.id);
@@ -102,6 +102,9 @@ io.on('connection', socket => {
         }
     });
 
+    socket.on('disconnect', (room) => {
+        onDisconnect(room);
+    });
     //socket.on('user_finish', finishUser);
 });
 
@@ -154,6 +157,10 @@ function isFinished(room) {
 function getMatches(room) {
     currSesh = sessions[room];
     return currSesh.getMatches();
+}
+
+function onDisconnect(room) {
+    delete sessions[room];
 }
 
 server.listen(port, function() {
