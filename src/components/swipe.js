@@ -91,7 +91,7 @@ class SwipePage extends Component {
         const name = this.state.activities[this.state.idx].name;
         const cuisine = this.state.activities[this.state.idx].cuisine;
         const location = this.state.activities[this.state.idx].location;
-        const imageUrl = this.state.activities[this.state.idx].imageUrl;
+        const imageUrl = this.state.activities[this.state.idx].image_url;
         const rating = this.state.activities[this.state.idx].rating;
 
         console.log(name);
