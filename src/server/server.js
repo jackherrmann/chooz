@@ -90,12 +90,14 @@ io.on('connection', socket => {
         }
         socket.emit('processed_swipes', emit_data);
 
-        if (isFinished()) {
+        if (isFinished(room)) {
             const matches = getMatches(room);
+            console.log(matches);
             const emit_results = {
                 matches : matches
             }
             socket.to(room).emit('finished_all', emit_results);
+            socket.emit('finished_all', emit_results);
         }
     });
 

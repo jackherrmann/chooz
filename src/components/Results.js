@@ -56,31 +56,10 @@ class Results extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            results: []
+            results: props.location.state.matches
         }
         this.socket = props.socket;
     }
-
-    /*
-    componentDidMount() {
-        this.socket.on('initial_joined_session', data => {
-            const {sessionId, participants} = data;
-            console.log ("received", sessionId);
-            this.setState({
-                sessionId: sessionId,
-                participants: participants
-            })
-        })
-        this.socket.on('user_joined_session', data => {
-            const {username} = data;
-            console.log("received ", username);
-            this.setState({
-                participants: this.state.participants.concat(username)
-            })
-        })
-        console.log(this.state.participants);
-    }
-    */
 
     createResultsCards() {
         const { classes } = this.props; 
