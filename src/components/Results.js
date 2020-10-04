@@ -1,11 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import testPic from './test-media/testPicture.jpg'; 
 import CardMedia from '@material-ui/core/CardMedia'; 
-import testImage from './test-media/testPicture.jpg'; 
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
@@ -76,29 +73,7 @@ class Results extends React.Component {
 
     createResultsCards() {
         const { classes } = this.props; 
-        const resultOne = {
-            "name": "Pizza Hut", 
-            "link": "https://www.pizzahut.com", 
-            "pic": testPic
-        }
         
-        const resultTwo = {
-            "name": "McDonald's", 
-            "link": "https://www.pizzahut.com", 
-            "pic": testPic
-        }
-        const resultThree = {
-            "name": "&Pizza", 
-            "link": "https://www.pizzahut.com", 
-            "pic": testPic
-        }
-        const resultFour = {
-            "name": "Pelicana", 
-            "link": "www.pizzahut.com", 
-            "pic": testPic
-        }
-        // end testing
-        const results = [resultOne, resultTwo, resultThree, resultFour]; 
         const cards = [];    
         for (let idx in this.state.results) {
             const cardName = this.state.results[idx].name; 
@@ -107,7 +82,7 @@ class Results extends React.Component {
             cards.push(
 
                 <Card className={classes.subCard}>
-                    <a href={cardLink} target="_blank">
+                    <a href={cardLink} target="_blank" rel="noopener noreferrer">
 
                         <CardMedia
                             className={classes.media}

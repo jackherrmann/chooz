@@ -98,7 +98,6 @@ class StartSession extends Component {
           count: 0,
           activityType: "Restaurants",
           activityGenre: '', 
-          activityGenre: '',
           activityPrice: '',
           numItems: 10,
           latitude: 0,

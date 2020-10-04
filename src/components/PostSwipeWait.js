@@ -4,10 +4,6 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { CircularProgress } from '@material-ui/core';
-import List from '@material-ui/core/List'; 
-import ListItem from '@material-ui/core/ListItem'; 
-import ListItemText from '@material-ui/core/ListItemText'; 
-import { render } from '@testing-library/react';
 
 import { withRouter } from 'react-router-dom';
 

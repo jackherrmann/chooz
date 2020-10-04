@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { IconButton, Grid, withStyles } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Activity from './Activity';
@@ -104,10 +103,10 @@ class SwipePage extends Component {
     }
 
     handleKeyPress = (event) => {
-        if (event.keyCode == '37') {
+        if (event.keyCode === 37) {
             this.handleNoClick();
         }
-        else if (event.keyCode == '39') {
+        else if (event.keyCode === 39) {
             this.handleYesClick();
         }
     }
