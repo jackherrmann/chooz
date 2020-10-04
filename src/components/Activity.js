@@ -22,7 +22,7 @@ const styles = (theme) => ({
     },
 
     media: {
-        width: "100%", 
+        width: "40rem", 
         height: "20rem"
     },
 
