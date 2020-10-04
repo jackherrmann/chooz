@@ -36,20 +36,6 @@ const styles = (theme) => ({
     }, 
     formControl: {
         marginBottom: "2rem", 
-    }, 
-    partListContainer: {
-        width: "50%", 
-        display: 'flex', 
-        justifyContent: "center", 
-    }, 
-    list: {
-        width: "50%", 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-    },
-    listItem: {
-        textAlign: "center", 
     }
 
 });
@@ -62,9 +48,6 @@ class PreSessionGuest extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sessionId: "",
-            participants: [],
-            name: props.location.state.name
         }
         this.socket = props.socket;
     }
@@ -90,23 +73,10 @@ class PreSessionGuest extends React.Component {
                 pathname: '/session',
                 state: {    
                     activities: activities,
-                    name: this.state.name,
-                    sessionId: this.state.sessionId
+                    name: this.state.name
                 }
             })
         })
-    }
-
-    createPartList = () => {
-        var parts = [];  
-        for (let idx in this.state.participants) {
-            parts.push(
-                <ListItem>
-                    <ListItemText primary={this.state.participants[idx]}/>
-                </ListItem>
-            ); 
-        }
-        return parts; 
     }
 
     
@@ -121,18 +91,7 @@ class PreSessionGuest extends React.Component {
     
                 <Card className={classes.card}>
     
-                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Waiting for the host to begin...</Typography>
-    
-                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Session ID: {this.state.sessionId}</Typography>
-    
-                    <Typography variant="h6" className={classes.partListTitle}> Participants: </Typography>
-                    <div className={classes.partListContainer}>
-                        <List className={classes.list}>
-                        
-                            {this.createPartList(this.state.participants)}
-                        
-                        </List>
-                    </div>
+                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Waiting for your friends to finish...</Typography>
     
                 </Card>
     
