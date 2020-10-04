@@ -85,7 +85,7 @@ class StartSession extends Component {
         super(props);
         this.state = {
           count: 0,
-          activityType: '',
+          activityType: "Restaurants",
           activityGenre: '', 
           activityGenre: '',
           activityPrice: '',
@@ -187,9 +187,9 @@ class StartSession extends Component {
 
                     <Typography className={classes.cardTitle} color="primary" variant="h4"> Create a Session</Typography>
 
-                    <TextField className={classes.keywordInput} id="name" label="Your Name" defaultValue="" onChange={handleNamechange} />
+                    <TextField className={classes.keywordInput} id="name" label="Name" defaultValue="" onChange={handleNamechange} />
 
-                    <FormControl className={classes.formControl}>
+                    {/* <FormControl className={classes.formControl}>
                         <InputLabel id="ActivityTypeLabel" className={classes.selectLabel}> Select Activity </InputLabel>
                         <Select
                             labelId="ActivityTypeLabel"
@@ -201,9 +201,9 @@ class StartSession extends Component {
                             {getMenuItems(Object.keys(genres))}
                         </Select>
 
-                    </FormControl>
+                    </FormControl> */}
                     <FormControl className={classes.formControl}>
-                        <InputLabel id="GenreLabel" className={classes.selectLabel}> Select Genre </InputLabel>
+                        <InputLabel id="GenreLabel" className={classes.selectLabel}> Select Cuisine </InputLabel>
                         <Select
                                 labelId="ActivityGenreLabel"
                                 id="ActivityGenre"
