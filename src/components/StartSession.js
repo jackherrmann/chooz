@@ -86,8 +86,7 @@ class StartSession extends Component {
         this.state = {
           count: 0,
           activityType: "Restaurants",
-          activityGenre: '', 
-          activityGenre: '',
+          activityGenre: '', ]
           activityPrice: '',
           numItems: 10,
           latitude: 0,
