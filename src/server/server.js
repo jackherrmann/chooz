@@ -18,7 +18,6 @@ io.on('connection', socket => {
         const { name, activityType, numSwipes } = data;
         const sessionId = createSession(socket, name, activityType, numSwipes);
         const session = sessions[sessionId];
-        console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
         const emit_data = {
             'sessionId': sessionId
         }
@@ -86,6 +85,8 @@ function createSession(socket, name, category, swipes, location) {
     sessions[code] = newSesh; //add session to session dict
 
     socket.join(code);
+
+    return code;
 }
 
 async function startSession() {
