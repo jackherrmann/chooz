@@ -1,6 +1,5 @@
 // eslint-disable-next-line
 import React from 'react';
-import SwipePage from './components/swipe';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -16,6 +15,8 @@ import JoinSession from './components/JoinSession.js';
 import PreSessionHost from './components/PreSessionHost.js'; 
 // eslint-disable-next-line
 import PreSessionGuest from './components/PreSessionGuest.js'; 
+//eslint-disable-next-line
+import SwipePage from './components/swipe';
 
 import socketIOClient from "socket.io-client";
 
@@ -33,6 +34,9 @@ function App() {
         )}/>
         <Route path='/join' render={(props) => (
           <JoinSession socket={socket} />
+        )} />
+        <Route path='/swipe' render={(props) => (
+          <SwipePage socket={socket} />
         )} />
       </Router>
     </div>

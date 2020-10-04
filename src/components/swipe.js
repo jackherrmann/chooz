@@ -1,16 +1,15 @@
-import React from 'react';
-import { IconButton, Grid, makeStyles } from '@material-ui/core';
+import React, { Component } from 'react';
+import { IconButton, Grid, withStyles } from '@material-ui/core';
 import Activity from './Activity';
 import NotInterestedIcon from '@material-ui/icons/NotInterested'; 
 import CheckIcon from '@material-ui/icons/Check';
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
     noButtonStyle: {
         background: 'red', 
         borderRadius: 30, 
         border: 0, 
         color: 'white', 
-        // width: '300%',
         marginRight: '1rem',
         marginTop: '1rem',
     }, 
@@ -19,11 +18,10 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 30, 
         border: 0, 
         color: 'white', 
-        // width: '300%',
         marginLeft: '1rem',
         marginTop: '1rem',
     }, 
-  }));
+  });
 
 const handleYesClick = () => {
     console.log("Yes was clicked wooo"); 
@@ -33,9 +31,17 @@ const handleNoClick = () => {
     console.log("No was clicked nooo"); 
 }
 
-export default function SwipePage() {
-      const classes = useStyles();
-      return (
+class SwipePage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+
+    render() {
+        const { classes } = this.props;
+
+        return (
             <Grid 
                 container
                 direction="column"
@@ -61,4 +67,8 @@ export default function SwipePage() {
                 </Grid>
             </Grid>
       );
+    }
+      
 };
+
+export default withStyles(styles, {withTheme: true})(SwipePage);
