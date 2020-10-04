@@ -21,9 +21,8 @@ const styles = (theme) => ({
     },
 
     media: {
-        paddingTop: '56.25%', // 16:9
-        height: "100%", 
-        width: "100%",
+        width: "100%", 
+        height: "20rem"
     },
 
     bodyTextHolder: {
@@ -67,7 +66,7 @@ class Activity extends Component {
         this.state = {
             name: props.name,
             cuisine: props.cuisine,
-            imageUrl: props.image_url,
+            imageUrl: props.imageUrl,
             location: props.location,
             rating: props.rating,
         };
@@ -75,18 +74,14 @@ class Activity extends Component {
     
     render() {
         const { classes } = this.props;
-
+    
         return (
             <Box flexDirection="column" display="flex" flexWrap="no-wrap">
                 <Box className={classes.card}>
                     {/* TODO: make the image normal size + add the rest of the fields */}
                     <Box flexDirection="column">
                         <Box>
-                            <CardMedia
-                                className={classes.media}
-                                src={this.state.imageUrl}
-                                title="Activity image"
-                            />
+                            <CardMedia component="img" className={classes.media} src={this.state.imageUrl} />
                             <Box className={classes.overlay} pb="0rem" >
                                 {this.state.name}
                             </Box>
