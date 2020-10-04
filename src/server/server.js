@@ -17,8 +17,13 @@ io.on('connection', socket => {
     console.log('User connected!', socket.id);
 
     socket.on('create_session', (data) => {
-        const { name, activityType, numSwipes, location, params } = data;
-        const sessionId = createSession(socket, name, activityType, numSwipes, location, params);
+        const { name, cuisine, numSwipes, location, params } = data;
+
+        var input_cuisine = cuisine;
+        if (input_cuisine == "Breakfast & Brunch") {
+            input_cuisine = "breakfast_brunch";
+        }
+        const sessionId = createSession(socket, name, input_cuisine, numSwipes, location, params);
         const emit_data = {
             'sessionId': sessionId
         }

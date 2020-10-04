@@ -129,7 +129,7 @@ class StartSession extends Component {
 
         const { classes } = this.props; 
 
-        var keywordInput = ""; 
+        // var keywordInput = ""; 
         const handleNamechange = (event) => {
             this.setState({ name: event.target.value}); 
         }
@@ -143,9 +143,9 @@ class StartSession extends Component {
         const handlePriceChange = (event) => {
             this.setState({ activityPrice: event.target.value });
         }
-        const handleKeywordChange = (event) => {
-            keywordInput = event.target.value; 
-        }
+        // const handleKeywordChange = (event) => {
+        //     keywordInput = event.target.value; 
+        // }
         const handleNumItemsInputChange = (event) => {
             this.setState({ numItems: event.target.value });
         }
@@ -178,7 +178,7 @@ class StartSession extends Component {
         };
 
         const genres = {
-            "Restaurants": ["Any", "Chinese", "Pizza", "Other"], 
+            "Restaurants": ["Any", "Chinese", "Mexican", "Italian", "Pizza", "Burgers", "Breakfast & Brunch", "Cafes", "Sushi"], 
             "Movies": ["Any", "Comedy", "Action", "Horror"], 
             "Events": ["Any", "Concert", "Protest", "Other"]
         }; 
@@ -238,7 +238,7 @@ class StartSession extends Component {
                         </Select>
                     </FormControl>
 
-                    <TextField className={classes.keywordInput} id="keyword" label="Enter Keyword (Optional)" defaultValue="" onChange={handleKeywordChange} />
+                    {/* <TextField className={classes.keywordInput} id="keyword" label="Enter Keyword (Optional)" defaultValue="" onChange={handleKeywordChange} /> */}
 
                     <InputLabel id="numItemsLabel" className={classes.sliderLabel}> Number of Items </InputLabel>
                     <div className={classes.sliderContainer}> 
