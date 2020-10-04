@@ -12,39 +12,42 @@ const server = http.createServer(app);
 
 const io = socketio(server);
 
-
 io.on('connection', socket => {
     console.log('User connected!', socket.id);
 
-    socket.on('create_session', (data) => {
-        const { name, activityType, numSwipes } = data;
-        const sessionId = createSession(socket, name, activityType, numSwipes);
-        const session = sessions[sessionId];
-        console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
-        const emit_data = {
-            'sessionId': sessionId
-        }
-        socket.emit('created_session', emit_data);
-    });
-
-    socket.on('join_session', (data) => {
-        const { name, sessionId } = data;
-        const session = sessions[sessionId];
-        joinSession(socket, name, sessionId);
-        console.log(`Joined session ${sessionId}, which now has ${session.getNumMembers()} members`);
-        const emit_data = {
-            'username': name
-        }
-        socket.to(sessionId).emit('user_joined_session', emit_data);
-    })
-    //socket.on('swipe', swipeHandler);
-    //socket.on('user_finish', finishUser);
-    socket.on('start_session', () => {
-        startSession();
+    socket.on('create_session', (data) => {
+        const { name, activityType, numSwipes } = data;
+        const sessionId = createSession(socket, name, activityType, numSwipes);
+        const session = sessions[sessionId];
+        console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
+        const emit_data = {
+            'sessionId': sessionId
+        }
+        socket.emit('created_session', emit_data);
     });
+
+    socket.on('join_session', (data) => {
+        const { name, sessionId } = data;
+        joinSession(socket, name, sessionId);
+        console.log(`Joined session`);
+        const emit_data = {
+            'username': name
+        }
+        socket.to(sessionId).emit('user_joined_session', emit_data);
+
+        const session = sessions[sessionId];
+        const emit_data_to_joiner = {
+            'sessionId': sessionId,
+            'participants': session.getMembers()
+        }
+        socket.emit('initial_joined_session', emit_data_to_joiner);
+    });
+    //socket.on('swipe', swipeHandler);
+    //socket.on('user_finish', finishUser);
 });
 
 const sessions = {}; //maps session 'socket room' name to the actual session
+
 
 function swipeHandler(name, room, direction) {
     currSesh = sessions[room];

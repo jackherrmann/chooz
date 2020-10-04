@@ -6,6 +6,8 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import { Link } from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
     container: {
         width: '100%', 
@@ -52,11 +54,13 @@ export default function JoinSession(props) {
     var id = ""; 
     var name = "";
     const handleNameChange = (event) => {
+        name = event.target.value;
     }
     const handleIdChange = (event) => {
         id = event.target.value; 
     }
     const handleJoin = () => {
+        console.log('joining');
         const data = {
             'name': name,
             'sessionId': id
@@ -76,14 +80,13 @@ export default function JoinSession(props) {
 
                 <Typography className={classes.cardTitle} color="primary" variant="h4"> Join a Session</Typography>
 
-                <TextField className={classes.keywordInput} id="name" label="Enter Name" defaultValue="" onChange={handleNameChange} />
+                <TextField className={classes.keywordInput} id="nameInput" label="Enter Your Name" defaultValue="" onChange={handleNameChange} />
 
                 <TextField className={classes.keywordInput} id="sessionId" label="Enter Session ID" defaultValue="" onChange={handleIdChange} />
 
-                <TextField className={classes.keywordInput} id="nameInput" label="Enter Your Name" defaultValue="" onChange={handleNameChange} />
-
-                <Button className={classes.joinButton} variant="contained" onClick={handleJoin}>Join Session</Button>
-
+                <Link to='/presession-guest'>
+                    <Button className={classes.joinButton} variant="contained" onClick={handleJoin}>Join Session</Button>
+                </Link>
             </Card>
 
         </Container>

@@ -15,6 +15,10 @@ class Session {
         console.log("finished assigning fields")
     }
 
+    getMembers() {
+        return Object.keys(this.choosers);
+    }
+
     getCategory() {
         return this.category;
     }

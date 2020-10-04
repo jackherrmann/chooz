@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/core/Slider'; 
 
-
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     container: {
@@ -92,6 +92,7 @@ class StartSession extends Component {
           numItems: 10,
           latitude: 0,
           longitude: 0,
+          name: ''
         };
     }
 
@@ -120,9 +121,8 @@ class StartSession extends Component {
         const { classes } = this.props; 
 
         var keywordInput = ""; 
-        var nameInput = ""; 
         const handleNamechange = (event) => {
-            nameInput = event.target.value; 
+            this.setState({ name: event.target.value}); 
         }
         const handleActivityChange = (event) => {
             this.setState({ activityType: event.target.value });
@@ -145,7 +145,7 @@ class StartSession extends Component {
         }
         const handleCreate = () => {
             const data = {
-                'name': nameInput,
+                'name': this.state.name,
                 'activityType': this.state.activityType,
                 'numSwipes': this.state.numItems,
                 'location': {
@@ -253,9 +253,14 @@ class StartSession extends Component {
                             }}
                         />
                     </div>
-
-                    <Button className={classes.createButton} variant="contained" onClick={handleCreate}>Create Session</Button>
-
+                    <Link to={{
+                        pathname: '/presession-host',
+                        state: {
+                            hostName: this.state.name
+                        }
+                    }}>        
+                        <Button className={classes.createButton} variant="contained" onClick={handleCreate}>Create Session</Button>
+                    </Link>                    
                 </Card>
 
             </Container>
