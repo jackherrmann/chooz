@@ -36,6 +36,10 @@ const styles = theme => ({
         marginTop: "2rem", 
         marginBottom: "3rem", 
     }, 
+    spacedContainer: {
+        marginBottom: '1rem',
+        marginTop: '1rem',
+    },
   });
 
 class SwipePage extends Component {
@@ -52,11 +56,16 @@ class SwipePage extends Component {
     }
 
     componentDidMount() {
+        document.addEventListener("keydown", this.handleKeyPress, false);
         this.socket.on('processed_swipes', data => {
             this.props.history.push({
                 pathname: '/waiting',
             })
         })
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyPress, false);
     }
 
     handleComplete = () => {
@@ -87,6 +96,15 @@ class SwipePage extends Component {
             this.setState(state => ({
                 idx: state.idx + 1
             }))
+        }
+    }
+
+    handleKeyPress = (event) => {
+        if (event.keyCode == '37') {
+            this.handleNoClick();
+        }
+        else if (event.keyCode == '39') {
+            this.handleYesClick();
         }
     }
 
@@ -124,16 +142,19 @@ class SwipePage extends Component {
                         justify="center"
                         alignItems="center">
                         <Grid item>
-                            <IconButton className ={classes.noButtonStyle} onClick={this.handleNoClick} aria-label="Not Interested">
+                            <IconButton className ={classes.noButtonStyle} onClick={this.handleNoClick} onKeyPress={this.handleKeyPress} aria-label="Not Interested">
                                 <NotInterestedIcon />
                             </IconButton>
                         </Grid>
                         <Grid item>
-                            <IconButton className={classes.yesButtonStyle} onClick={this.handleYesClick} aria-label="Interested">
+                            <IconButton className={classes.yesButtonStyle} onClick={this.handleYesClick} onKeyPress={this.handleKeyPress} aria-label="Interested">
                                 <CheckIcon />
                             </IconButton>
                         </Grid>
                     </Grid>
+                    <Container className={classes.spacedContainer}>
+                        <Typography variant='body1'>Use the left and right arrow keys</Typography>
+                    </Container>
                 </Grid>
         </Container>
       );

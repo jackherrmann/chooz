@@ -33,6 +33,11 @@ const styles = (theme) => ({
         flexDirection: 'column', 
         marginTop: "1rem", 
         alignContent: 'center', 
+        borderRadius: "1.5rem"
+    },
+    cardTitle: {
+        marginTop: "1rem", 
+        marginBottom: ".5rem"
     },
     subCardContainer: {
         width: '100%', 
@@ -100,21 +105,21 @@ class Results extends React.Component {
             const cardLink = this.state.results[idx].url; 
             const cardPic = this.state.results[idx].image_url;  
             cards.push(
-                <Card className={classes.subCard}>
-                    <CardMedia
-                        className={classes.media}
-                        component="img"
-                        src={cardPic}
-                        title="Item Image"
-                    />
 
+                <Card className={classes.subCard}>
                     <a href={cardLink} target="_blank">
+
+                        <CardMedia
+                            className={classes.media}
+                            component="img"
+                            src={cardPic}
+                            title="Item Image"
+                        />
+
                         <Typography className={classes.subCardTitle} color="primary" variant="h5">
                             {cardName}
                         </Typography>
                     </a>
-
-                    
                 </Card>
                 
             ); 
@@ -134,7 +139,7 @@ class Results extends React.Component {
     
                 <Card className={classes.card}>
     
-                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Session Results: </Typography>
+                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Session Results </Typography>
                     <div className={classes.subCardContainer}>
                         {this.createResultsCards()}
                     </div>
