@@ -47,13 +47,32 @@ io.on('connection', socket => {
     });
 
     socket.on('start_session', (room) => {
-        startSession(room)
+        /* startSession(room)
         .then(activities => {
             const emit_data = {
                 activities: activities,
             }
             socket.to(room).emit('started_session', emit_data);
-        });
+        }); */
+        const test1 = {
+            name: 'Pizza Hut',
+            cuisine: 'Chicken Wings',
+            url: '',
+            imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
+            rating: 2.5,
+            location: 'xavier\'s house',
+        };
+        
+        const test2 = {
+            name: 'Pizza Hut',
+            cuisine: 'Chicken',
+            url: '',
+            imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/arctichare.png',
+            rating: 2,
+            location: 'xavier\'s house',
+        };
+        socket.to(room).emit('started_session', [test1, test2]);
+        socket.emit('started_session', [test1, test2]);
     });
 
     socket.on('process_swipes', (room, name, userSwipes) => {
@@ -111,11 +130,11 @@ function createSession(socket, name, category, swipes, location, params) {
 }
 
 async function startSession(room) {
-    await sessions[room].generateActivities();
-
-    const activities = newSesh.getActivities();
-
-    return activities;
+    const newSesh = sessions[room];
+    await newSesh.generateActivities()
+    .then(activities => {
+        return activities;
+    });
 }
 
 function processSwipes(room, name, userSwipes) {

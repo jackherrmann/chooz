@@ -59,7 +59,12 @@ class JoinSession extends React.Component {
     componentDidMount() {
         this.socket.on('join_attempt_result', result => {
             if (result) {
-                this.props.history.push('/presession-guest');
+                this.props.history.push({
+                    pathname: '/presession-guest',
+                    state: {
+                        name: this.state.name
+                    }
+                })
             }
             else {
                 window.alert("Session does not exist");

@@ -20,12 +20,11 @@ import SwipePage from './components/swipe';
 
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient("localhost:4000");
+const socket = socketIOClient("http://choozserver-env.eba-822ytfjc.us-east-2.elasticbeanstalk.com");
 
 function App() {
   return (
     <div>
-      <SwipePage />
       <Router>
         <Route exact path = '/' render={(props) => (
           <MainPage />
@@ -41,6 +40,9 @@ function App() {
         )} />
         <Route path='/presession-guest' render={(props) => (
           <PreSessionGuest {...props} socket={socket}/>
+        )} />
+        <Route path='/session' render={(props) => (
+          <SwipePage {...props} socket={socket}/>
         )} />
       </Router>
     </div>

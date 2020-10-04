@@ -46,21 +46,41 @@ class SwipePage extends Component {
         super(props);
         this.state = {
             idx: 0,
-            activities: [test1, test2],
+            activities: props.location.state.activities,
             swipes: [],
+            name: props.location.state.name
         };
+        this.socket = props.socket;
+    }
+
+    handleComplete = () => {
+        const emit_data = {
+            name: this.state.name,
+            swipes: this.state.swipes
+        }
+        this.socket.emit('finished_swipes', emit_data);
     }
 
     handleYesClick = () => {
         console.log("Yes was clicked wooo"); 
         this.setState({ swipes: this.state.swipes.concat(1) });
-        this.setState({ idx: this.state.idx + 1 });
+        if (this.state.idx >= this.state.activities.length) {
+            this.handleComplete();
+        }
+        else {
+            this.setState({ idx: this.state.idx + 1 });
+        }
     }
     
     handleNoClick = () => {
         console.log("No was clicked nooo"); 
         this.setState({ swipes: this.state.swipes.concat(0) });
-        this.setState({ idx: this.state.idx + 1 });
+        if (this.state.idx >= this.state.activities.length) {
+            this.handleComplete();
+        }
+        else{
+            this.setState({ idx: this.state.idx + 1 });
+        }
     }
 
     render() {

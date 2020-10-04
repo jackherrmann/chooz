@@ -153,7 +153,7 @@ class StartSession extends Component {
                     'longitude': this.state.longitude,
                 },
                 'params': {
-                    'genre' : this.state.activityGenre,
+                    'cuisine' : this.state.activityGenre,
                     'price' : this.state.activityPrice,
                 }
                 
