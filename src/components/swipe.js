@@ -40,6 +40,10 @@ const styles = theme => ({
         marginBottom: '1rem',
         marginTop: '1rem',
     },
+    description: {
+        marginBottom: "2rem",
+        color: "#343471",
+    },
   });
 
 class SwipePage extends Component {
@@ -153,7 +157,9 @@ class SwipePage extends Component {
                         </Grid>
                     </Grid>
                     <Container className={classes.spacedContainer}>
-                        <Typography variant='body1'>Use the left and right arrow keys</Typography>
+                        <Typography className={classes.description} color="secondary" variant="subtitle1">
+                            Use the left and right arrow keys to say "no" or "yes"!
+                        </Typography>
                     </Container>
                 </Grid>
         </Container>

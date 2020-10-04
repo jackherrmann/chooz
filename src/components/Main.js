@@ -72,7 +72,7 @@ export default function MainPage() {
                 <Typography className={classes.title} variant="h1"> <Link className={classes.titleLink} style={{ textDecoration: 'none' }} to='/'> chooz.io </Link> </Typography>
 
             <Typography className={classes.description} color="secondary" variant="subtitle1">
-                The app that helps you and your friends decide where to eat
+            Can't decide where to eat? chooz.io is a modern solution to group indecision
             </Typography>
 
             <Card className={classes.card}>
