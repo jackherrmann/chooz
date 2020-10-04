@@ -56,7 +56,7 @@ class Session {
             
             
             // name, price, cuisine, type = food, rating, 
-        } else if (category == "events") {
+        } else if (this.category == "events") {
 
         }
     

@@ -12,6 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import { withStyles } from '@material-ui/core/styles';
 
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
     container: {
@@ -54,10 +55,10 @@ class PreSessionHost extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props.location.state.hostName);
         this.state = {
             sessionId: "",
-            participants: [props.location.state.hostName]
+            participants: [props.location.state.hostName],
+            name: props.location.state.hostName
         }
         this.socket = props.socket;
     }
@@ -77,12 +78,21 @@ class PreSessionHost extends React.Component {
                 participants: this.state.participants.concat(username)
             })
         })
-        console.log(this.state.participants);
+        this.socket.on('started_session', activities => {
+            this.props.history.push({
+                pathname: '/session',
+                state: {
+                    activities: activities,
+                    name: this.state.name
+                }
+            })
+        })
     }
 
     handleBegin = () => {
-        console.log("began with id: " + this.state.sessionId); 
-    }
+        console.log("began with id: " + this.state.sessionId); 
+        this.socket.emit('start_session', this.state.sessionId);
+    }
 
 
     deletePart = (idx) => {
@@ -136,9 +146,7 @@ class PreSessionHost extends React.Component {
                         
                         </List>
                     </div>
-    
                     <Button className={classes.joinButton} variant="contained" onClick={this.handleBegin}>Begin Session</Button>
-    
                 </Card>
     
             </Container>
@@ -147,4 +155,4 @@ class PreSessionHost extends React.Component {
     
 }
 
-export default withStyles(styles, {withTheme: true})(PreSessionHost);
+export default withRouter(withStyles(styles, {withTheme: true})(PreSessionHost));
