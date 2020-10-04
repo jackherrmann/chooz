@@ -48,17 +48,17 @@ class SwipePage extends Component {
             idx: 0,
             activities: props.location.state.activities,
             swipes: [],
-            name: props.location.state.name
+            name: props.location.state.name,
+            sessionId: props.location.state.sessionId
         };
         this.socket = props.socket;
     }
 
     handleComplete = () => {
-        const emit_data = {
-            name: this.state.name,
-            swipes: this.state.swipes
-        }
-        this.socket.emit('finished_swipes', emit_data);
+        this.socket.emit('process_swipes', 
+            this.state.sessionId,
+            this.state.name,
+            this.state.swipes);
     }
 
     handleYesClick = () => {

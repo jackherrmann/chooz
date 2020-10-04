@@ -90,7 +90,8 @@ class PreSessionGuest extends React.Component {
                 pathname: '/session',
                 state: {    
                     activities: activities,
-                    name: this.state.name
+                    name: this.state.name,
+                    sessionId: this.state.sessionId
                 }
             })
         })
