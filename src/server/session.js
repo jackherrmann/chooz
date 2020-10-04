@@ -44,7 +44,6 @@ class Session {
 
     // TODO: Fix
     getMatches() {
-        console.log(this.swipes);
         var indexes = {};
         var currIndex = 0;
 
@@ -52,12 +51,11 @@ class Session {
             for (var j of this.swipes[i]) {
                 currIndex in indexes 
                     ? indexes[currIndex] += j
-                    : indexes[currIndex] = 1;
+                    : indexes[currIndex] = j;
                 currIndex++;
             }
             currIndex = 0;
         }
-        console.log(indexes);
 
         var matches = [];
 

@@ -47,11 +47,11 @@ class SwipePage extends Component {
         this.state = {
             idx: 0,
             activities: props.location.state.activities,
-            swipes: [],
             name: props.location.state.name,
             sessionId: props.location.state.sessionId
         };
         this.socket = props.socket;
+        this.swipes = [];
     }
 
     componentDidMount() {
@@ -66,45 +66,41 @@ class SwipePage extends Component {
         this.socket.emit('process_swipes', 
             this.state.sessionId,
             this.state.name,
-            this.state.swipes);
+            this.swipes);
     }
 
     handleYesClick = () => {
-        console.log("Yes was clicked wooo"); 
-        this.setState({ swipes: this.state.swipes.concat(1) });
-        console.log(this.state.swipes);
+        this.swipes.push(1);
         if (this.state.idx >= this.state.activities.length-1) {
             this.handleComplete();
         }
         else {
-            this.setState({ idx: this.state.idx + 1 });
+            this.setState(state => ({
+                idx: state.idx + 1
+            }))
         }
     }
     
     handleNoClick = () => {
-        console.log("No was clicked nooo"); 
-        this.setState({ swipes: this.state.swipes.concat(0) });
-        console.log(this.state.swipes);
+        this.swipes.push(0);
         if (this.state.idx >= this.state.activities.length-1) {
             this.handleComplete();
         }
-        else{
-            this.setState({ idx: this.state.idx + 1 });
+        else {
+            this.setState(state => ({
+                idx: state.idx + 1
+            }))
         }
     }
 
     render() {
         const { classes } = this.props;
 
-        console.log(this.state.idx);
-
         const name = this.state.activities[this.state.idx].name;
         const cuisine = this.state.activities[this.state.idx].cuisine;
         const location = this.state.activities[this.state.idx].location;
         const imageUrl = this.state.activities[this.state.idx].image_url;
         const rating = this.state.activities[this.state.idx].rating;
-
-        console.log(name);
 
         return (
             <Grid 
