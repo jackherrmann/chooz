@@ -2,7 +2,7 @@ const {yelpSearch} = require('../yelp-api/yelpSearch');
 
 class Session {
 
-    constructor(category, numActivities, location) {
+    constructor(category, numActivities, location, params) {
         this.host = "";
         this.choosers = [];
         this.category = category;
@@ -10,7 +10,8 @@ class Session {
         this.numActivities = numActivities;
         this.results = {}; // maps activites to num of matches, take that number compare to total num of users
         this.activities = [];
-        this.location = location
+        this.location = location;
+        this.params = params;
     }
 
     getMembers() {
@@ -25,8 +26,8 @@ class Session {
         console.log(this.category)
         if (this.category == "movies") {
 
-        } else if (this.category == "Food") {
-            yelpSearch(this.category, this.location.latitude, this.location.longitude)
+        } else if (this.category == "Restaurants") {
+            yelpSearch(this.category, this.location.latitude, this.location.longitude, this.params)
             .then((businesses) => {
                 console.log(businesses[0]);
                 var c = 0;

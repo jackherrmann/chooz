@@ -151,6 +151,10 @@ class StartSession extends Component {
                 'location': {
                     'latitude': this.state.latitude,
                     'longitude': this.state.longitude,
+                },
+                'params': {
+                    'genre' : this.state.activityGenre,
+                    'price' : this.state.activityPrice,
                 }
                 
             };
@@ -167,7 +171,7 @@ class StartSession extends Component {
         };
 
         const genres = {
-            "Food": ["Any", "Chinese", "Pizza", "Other"], 
+            "Restaurants": ["Any", "Chinese", "Pizza", "Other"], 
             "Movies": ["Any", "Comedy", "Action", "Horror"], 
             "Events": ["Any", "Concert", "Protest", "Other"]
         }; 
