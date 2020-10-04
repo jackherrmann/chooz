@@ -3,36 +3,21 @@ const {yelpSearch} = require('../yelp-api/yelpSearch');
 class Session {
 
     constructor(category, numActivities, location) {
-        console.log("making session");
         this.host = "";
-        this.choosers = {};
+        this.choosers = [];
         this.category = category;
         this.swipes = {};
         this.numActivities = numActivities;
         this.results = {}; // maps activites to num of matches, take that number compare to total num of users
         this.activities = [];
         this.location = location
-        console.log("finished assigning fields")
     }
 
     getMembers() {
-        return Object.keys(this.choosers);
-    }
-
-    getCategory() {
-        return this.category;
-    }
-
-    getNumActivites() {
-        return this.numActivities;
-    }
-
-    getNumMembers() {
-        return Object.keys(this.choosers).length;
+        return this.choosers;
     }
 
     async generateActivities() {
-        console.log("in async")
         console.log(this.category)
         if (this.category == "movies") {
 
@@ -46,8 +31,7 @@ class Session {
                     if (c == this.numActivities) {
                         break;
                     }
-                    console.log("b below");
-                    console.log(b);
+                    
                     const activity = {
                         name : b.name,
                         cuisine : b.categories[0].title,
@@ -60,15 +44,6 @@ class Session {
 
                     this.activities.push(activity);
                     c++;
-                }
-
-                for (var name in this.choosers) {
-                    var dummy = [];
-                    for (var i = 0; i < c + 1; i++) {
-                        dummy.push(-1);
-                    }
-        
-                    this.swipes[name] = dummy;
                 }
                 
             })
@@ -85,23 +60,27 @@ class Session {
     }
 
     addMember(name) {
-        this.choosers[name] = 0;
+        this.choosers.push(name);
     }
 
     setHost(name) {
         this.hose = name;
     }
 
-    performSwipe(name, direction) {
-        var idx = this.choosers[name]
+    // performSwipe(name, direction) {
+    //     var idx = this.choosers[name]
 
-        if (direction == "left") {
-            this.swipes[name][idx] = 0;
-        } else {
-            this.swipes[name][idx] = 1;
-        }
+    //     if (direction == "left") {
+    //         this.swipes[name][idx] = 0;
+    //     } else {
+    //         this.swipes[name][idx] = 1;
+    //     }
 
-        this.choosers[name]++;
+    //     this.choosers[name]++;
+    // }
+
+    processSwipes(name, userSwipes) {
+        this.swipes[name] = userSwipes;
     }
 
     isFinished() {

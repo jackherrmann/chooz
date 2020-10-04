@@ -69,7 +69,7 @@ function joinSession(socket, name, room) {
     socket.join(room);
 };
 
-createSession(socket, name, category, swipes, location) {
+function createSession(socket, name, category, swipes, location) {
     const findCode = (Math.floor(Math.random()*100000+1));
 
     while (findCode.toString() in sessions) {
@@ -79,7 +79,6 @@ createSession(socket, name, category, swipes, location) {
     const code = findCode.toString();
 
     const newSesh = new Session(category, swipes, location); //create new session
-    console.log("adding mem");
     newSesh.setHost(name);
     newSesh.addMember(name);
 
