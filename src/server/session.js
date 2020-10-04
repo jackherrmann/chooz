@@ -1,4 +1,4 @@
-import {yelpSearch} from '../yelp-api/yelpSearch';
+// import {yelpSearch} from '../yelp-api/yelpSearch';
 
 class Session {
 
@@ -29,7 +29,7 @@ class Session {
     generateActivities(category) {
         if (category == "movies") {
 
-        } else if (category == "food") {
+        } else if (category == "working...") {
             const [businesses, amountResults, searchParams, setSearchParams] 
                 = yelpSearch(category, location.latitude, location.longitude);
 
