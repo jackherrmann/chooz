@@ -9,6 +9,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText'; 
 import IconButton from '@material-ui/core/IconButton'; 
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Link } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -27,6 +28,9 @@ const styles = theme => ({
         marginTop: "2rem", 
         marginBottom: "3rem", 
     }, 
+    titleLink: {
+        color: "#5353b5", 
+    }, 
     card: {
         width: '75%', 
         display: 'flex', 
@@ -34,6 +38,7 @@ const styles = theme => ({
         flexDirection: 'column', 
         marginTop: "1rem", 
         alignContent: 'center', 
+        borderRadius: '1.5rem', 
     },
     cardTitle: {
         marginTop: "1rem", 
@@ -46,7 +51,9 @@ const styles = theme => ({
     }, 
     joinButton: {
         marginTop: "3rem", 
-        marginBottom: "2rem"
+        marginBottom: "2rem", 
+        backgroundColor: "#5353b5", 
+        color: 'white'
     }, 
 });
 
@@ -129,7 +136,7 @@ class PreSessionHost extends React.Component {
 
             <Container className={classes.container}>
     
-                <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
+                <Typography className={classes.title} variant="h1"> <Link className={classes.titleLink} style={{ textDecoration: 'none' }} to='/'> chooz.io </Link> </Typography>
     
                 <Card className={classes.card}>
     

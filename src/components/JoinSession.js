@@ -5,8 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
 import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const styles = (theme) => ({
     container: {
@@ -21,6 +21,9 @@ const styles = (theme) => ({
         marginTop: "2rem", 
         marginBottom: "3rem", 
     }, 
+    titleLink: {
+        color: "#5353b5", 
+    }, 
     card: {
         width: '75%', 
         display: 'flex', 
@@ -28,6 +31,8 @@ const styles = (theme) => ({
         flexDirection: 'column', 
         marginTop: "1rem", 
         alignContent: 'center', 
+        borderRadius: '1.5rem', 
+
     },
     cardTitle: {
         marginTop: "1rem", 
@@ -40,7 +45,9 @@ const styles = (theme) => ({
         marginBottom: "2rem"
     }, 
     joinButton: {
-        marginBottom: "2rem"
+        marginBottom: "2rem", 
+        backgroundColor: '#5353b5', 
+        color: 'white'
     }, 
 });
 
@@ -94,7 +101,7 @@ class JoinSession extends React.Component {
 
             <Container className={classes.container}>
 
-                <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
+                <Typography className={classes.title} variant="h1"> <Link className={classes.titleLink} style={{ textDecoration: 'none' }} to='/'> chooz.io </Link> </Typography>
 
                 <Card className={classes.card}>
 

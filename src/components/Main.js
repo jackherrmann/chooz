@@ -16,12 +16,16 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center', 
         justifyContent: 'space-around', 
     }, 
+    titleLink: {
+        color: "#5353b5", 
+    }, 
     title: {
         marginTop: "2rem", 
         marginBottom: "3rem", 
     }, 
     card: {
         width: '75%', 
+        borderRadius: '1.5rem', 
         display: 'flex', 
         flexWrap: 'wrap', 
         justifyContent: 'center', 
@@ -32,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 20, 
         marginTop: 30, 
         marginBottom: 30, 
+        backgroundColor: "#5353b5", 
+        color: 'white'
+        
     },
 }));
 
@@ -54,13 +61,13 @@ export default function MainPage() {
 
         <Container className={classes.container}>
 
-            <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
+                <Typography className={classes.title} variant="h1"> <Link className={classes.titleLink} style={{ textDecoration: 'none' }} to='/'> chooz.io </Link> </Typography>
 
             <Card className={classes.card}>
-                <Link to='/create'>
+                <Link style={{ textDecoration: 'none' }} to='/create'>
                     <Button className={classes.button} variant="contained" onClick={handleStart}> Start Session </Button>
                 </Link>
-                <Link to='/join'>
+                <Link style={{ textDecoration: 'none' }} to='/join'>
                     <Button className={classes.button} variant="contained" onClick={handleJoin}> Join Session </Button>
                 </Link>
             </Card>

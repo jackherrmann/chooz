@@ -22,6 +22,9 @@ const styles = (theme) => ({
         marginTop: "2rem", 
         marginBottom: "3rem", 
     }, 
+    titleLink: {
+        color: "#5353b5", 
+    }, 
     card: {
         width: '75%', 
         display: 'flex', 
@@ -144,7 +147,7 @@ class Results extends React.Component {
 
             <Container className={classes.container}>
     
-                <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
+                <Typography className={classes.title} variant="h1"> <Link className={classes.titleLink} style={{ textDecoration: 'none' }} to='/'> chooz.io </Link> </Typography>
     
                 <Card className={classes.card}>
     

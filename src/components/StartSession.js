@@ -27,6 +27,10 @@ const styles = theme => ({
     title: {
         marginTop: "2rem", 
         marginBottom: "3rem", 
+        color: "#5353b5"
+    }, 
+    titleLink: {
+        color: "#5353b5", 
     }, 
     card: {
         width: '75%', 
@@ -35,6 +39,9 @@ const styles = theme => ({
         flexDirection: 'column', 
         marginTop: "1rem", 
         alignContent: 'center', 
+        backgroundColor: 'white', 
+        borderRadius: '1.5rem', 
+        marginBottom: '2rem'
     },
     cardTitle: {
         marginTop: "1rem", 
@@ -46,13 +53,17 @@ const styles = theme => ({
     selectLabel: {
     }, 
     select: {
-        width: '100%'
+        width: '100%', 
+        
     },
     keywordInput: {
-        marginBottom: "2rem"
+        marginBottom: "2rem", 
+        color: 'red'
     }, 
     createButton: {
-        marginBottom: "2rem"
+        marginBottom: "2rem", 
+        backgroundColor: '#5353b5', 
+        color: 'white'
     }, 
     sliderContainer: {
         marginBottom: "2rem", 
@@ -181,13 +192,13 @@ class StartSession extends Component {
 
             <Container className={classes.container}>
 
-                <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
+                <Typography className={classes.title} variant="h1"> <Link className={classes.titleLink} style={{ textDecoration: 'none' }} to='/'> chooz.io </Link> </Typography>
 
                 <Card className={classes.card}>
 
                     <Typography className={classes.cardTitle} color="primary" variant="h4"> Create a Session</Typography>
 
-                    <TextField className={classes.keywordInput} id="name" label="Name" defaultValue="" onChange={handleNamechange} />
+                    <TextField className={classes.keywordInput} id="name" label="Your Name" defaultValue="" onChange={handleNamechange} />
 
                     {/* <FormControl className={classes.formControl}>
                         <InputLabel id="ActivityTypeLabel" className={classes.selectLabel}> Select Activity </InputLabel>
@@ -255,11 +266,12 @@ class StartSession extends Component {
                             }}
                         />
                     </div>
-                    <Link to={{
+                    <Link style={{ textDecoration: 'none' }} to={{
                         pathname: '/presession-host',
                         state: {
                             hostName: this.state.name
                         }
+                        
                     }}>        
                         <Button className={classes.createButton} variant="contained" onClick={handleCreate}>Create Session</Button>
                     </Link>                    
