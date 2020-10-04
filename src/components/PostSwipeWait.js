@@ -33,6 +33,7 @@ const styles = (theme) => ({
     },
     cardTitle: {
         marginTop: "1rem", 
+        marginBottom: '3rem'
     }, 
     formControl: {
         marginBottom: "2rem", 
