@@ -53,7 +53,7 @@ io.on('connection', socket => {
         console.log("started");
         const newSesh = sessions[room];
 
-        yelpSearch(newSesh.category, newSesh.location.latitude, newSesh.location.longitude, newSesh.params)
+        yelpSearch(newSesh.cuisine, newSesh.location.latitude, newSesh.location.longitude, newSesh.params)
         .then((businesses) => {
             console.log('first business');
             var c = 0;
