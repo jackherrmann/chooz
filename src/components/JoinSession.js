@@ -43,19 +43,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function JoinSession() {
+export default function JoinSession(props) {
+
+    const socket = props.socket;
 
     const classes = useStyles(); 
 
     var id = ""; 
-    var name = ""; 
+    var name = "";
     const handleNameChange = (event) => {
-        name = event.target.value; 
     }
     const handleIdChange = (event) => {
         id = event.target.value; 
     }
     const handleJoin = () => {
+        const data = {
+            'name': name,
+            'sessionId': id
+        }
+        socket.emit('join_session', data);
         console.log("joined with id: " + id); 
         console.log("joined with name: " + name); 
     }
@@ -70,7 +76,9 @@ export default function JoinSession() {
 
                 <Typography className={classes.cardTitle} color="primary" variant="h4"> Join a Session</Typography>
 
-                <TextField className={classes.keywordInput} id="keyword" label="Enter Session ID" defaultValue="" onChange={handleIdChange} />
+                <TextField className={classes.keywordInput} id="name" label="Enter Name" defaultValue="" onChange={handleNameChange} />
+
+                <TextField className={classes.keywordInput} id="sessionId" label="Enter Session ID" defaultValue="" onChange={handleIdChange} />
 
                 <TextField className={classes.keywordInput} id="nameInput" label="Enter Your Name" defaultValue="" onChange={handleNameChange} />
 
