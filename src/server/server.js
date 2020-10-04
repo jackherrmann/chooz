@@ -20,7 +20,13 @@ io.on('connection', socket => {
         const session = sessions[sessionId];
         console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
     });
-    //socket.on('join_session', joinSession);
+
+    socket.on('join_session', (data) => {
+        const { name, sessionId } = data;
+        const session = sessions[sessionId];
+        joinSession(socket, name, sessionId);
+        console.log(`Joined session ${sessionId}, which now has ${session.getNumMembers()} members`);
+    })
     //socket.on('swipe', swipeHandler);
     //socket.on('user_finish', finishUser);
 });
@@ -42,7 +48,7 @@ function swipeHandler(name, room, direction) {
 
 function joinSession(socket, name, room) {
     currSesh = sessions[room];
-    currSesh.addChooser(name);
+    currSesh.addMember(name);
 
     socket.join(room);
 }

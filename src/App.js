@@ -1,9 +1,11 @@
 // eslint-disable-next-line
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 // eslint-disable-next-line
 import Item from './components/Item.js'
 // eslint-disable-next-line
-import MainScreen from './components/Main.js'; 
+import MainPage from './components/Main.js'; 
 // eslint-disable-next-line
 import StartSession from './components/StartSession.js';
 // eslint-disable-next-line
@@ -16,7 +18,21 @@ import socketIOClient from "socket.io-client";
 const socket = socketIOClient("localhost:4000");
 
 function App() {
-  return <StartSession socket = { socket }/>; 
+  return (
+    <div>
+      <Router>
+        <Route exact path = '/' render={(props) => (
+          <MainPage />
+        )} />
+        <Route path='/create' render={(props) => (
+          <StartSession socket={socket} />
+        )}/>
+        <Route path='/join' render={(props) => (
+          <JoinSession socket={socket} />
+        )} />
+      </Router>
+    </div>
+  ); 
 }
 
 export default App;

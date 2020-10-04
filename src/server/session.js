@@ -19,6 +19,10 @@ class Session {
         return this.numActivities;
     }
 
+    getNumMembers() {
+        return Object.keys(this.choosers).length;
+    }
+
     generateActivities(category) {
         if (category == "movies") {
 

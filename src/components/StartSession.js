@@ -17,8 +17,6 @@ import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider'; 
 
 
-
-
 const useStyles = makeStyles((theme) => ({
     container: {
         width: '100%', 
