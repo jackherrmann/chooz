@@ -42,11 +42,10 @@ io.on('connection', socket => {
     })
     //socket.on('swipe', swipeHandler);
     //socket.on('user_finish', finishUser);
-});
-
     socket.on('start_session', () => {
         startSession()
     });
+});
 
     socket.on('join_session', (data) => {
         const { name, sessionId } = data;
@@ -99,10 +98,6 @@ createSession(socket, name, category, swipes, location) {
     sessions[code] = newSesh; //add session to session dict
 
     socket.join(code);
-    
-    const session = sessions[sessionId];
-    console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
-    return code;
 }
 
 async function startSession() {
