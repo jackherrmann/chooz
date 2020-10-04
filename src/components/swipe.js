@@ -54,6 +54,14 @@ class SwipePage extends Component {
         this.socket = props.socket;
     }
 
+    componentDidMount() {
+        this.socket.on('processed_swipes', data => {
+            this.props.history.push({
+                pathname: '/waiting',
+            })
+        })
+    }
+
     handleComplete = () => {
         this.socket.emit('process_swipes', 
             this.state.sessionId,
@@ -64,7 +72,8 @@ class SwipePage extends Component {
     handleYesClick = () => {
         console.log("Yes was clicked wooo"); 
         this.setState({ swipes: this.state.swipes.concat(1) });
-        if (this.state.idx >= this.state.activities.length) {
+        console.log(this.state.swipes);
+        if (this.state.idx >= this.state.activities.length-1) {
             this.handleComplete();
         }
         else {
@@ -75,7 +84,8 @@ class SwipePage extends Component {
     handleNoClick = () => {
         console.log("No was clicked nooo"); 
         this.setState({ swipes: this.state.swipes.concat(0) });
-        if (this.state.idx >= this.state.activities.length) {
+        console.log(this.state.swipes);
+        if (this.state.idx >= this.state.activities.length-1) {
             this.handleComplete();
         }
         else{
