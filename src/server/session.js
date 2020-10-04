@@ -107,7 +107,7 @@ class Session {
         currIndex = 0;
 
         for (i in swipes) {
-            for (j in swipes[i]) {
+            for (j of swipes[i]) {
                 indexes[currIndex] += j;
                 currIndex++;
             }
