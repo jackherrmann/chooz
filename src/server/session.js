@@ -22,7 +22,6 @@ class Session {
         return this.activities;
     }
 
-
     addMember(name) {
         this.choosers.push(name);
     }

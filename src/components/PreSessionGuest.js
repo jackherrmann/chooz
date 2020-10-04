@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText'; 
 import { render } from '@testing-library/react';
 
-
+import { withRouter } from 'react-router-dom';
 
 const styles = (theme) => ({
     container: {
@@ -63,7 +63,8 @@ class PreSessionGuest extends React.Component {
         super(props);
         this.state = {
             sessionId: "",
-            participants: []
+            participants: [],
+            name: props.location.state.name
         }
         this.socket = props.socket;
     }
@@ -84,7 +85,15 @@ class PreSessionGuest extends React.Component {
                 participants: this.state.participants.concat(username)
             })
         })
-        console.log(this.state.participants);
+        this.socket.on('started_session', activities => {
+            this.props.history.push({
+                pathname: '/session',
+                state: {    
+                    activities: activities,
+                    name: this.state.name
+                }
+            })
+        })
     }
 
     createPartList = () => {
@@ -131,4 +140,4 @@ class PreSessionGuest extends React.Component {
     }
 }
 
-export default withStyles(styles, {withTheme: true})(PreSessionGuest);
+export default withRouter(withStyles(styles, {withTheme: true})(PreSessionGuest));
