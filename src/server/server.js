@@ -16,9 +16,6 @@ const io = socketio(server);
 io.on('connection', socket => {
     console.log('User connected!', socket.id);
 
-    io.on('connection', socket => {
-    console.log('User connected!', socket.id);
-
     socket.on('create_session', (data) => {
         const { name, activityType, numSwipes } = data;
         const sessionId = createSession(socket, name, activityType, numSwipes);
@@ -43,21 +40,11 @@ io.on('connection', socket => {
     //socket.on('swipe', swipeHandler);
     //socket.on('user_finish', finishUser);
     socket.on('start_session', () => {
-        startSession()
+        startSession();
     });
 });
 
-    socket.on('join_session', (data) => {
-        const { name, sessionId } = data;
-        const session = sessions[sessionId];
-        joinSession(socket, name, sessionId);
-        console.log(`Joined session ${sessionId}, which now has ${session.getNumMembers()} members`);
-    })
-    //socket.on('swipe', swipeHandler);
-    //socket.on('user_finish', finishUser);
-});
-
-const sessions = {} //maps session 'socket room' name to the actual session
+const sessions = {}; //maps session 'socket room' name to the actual session
 
 function swipeHandler(name, room, direction) {
     currSesh = sessions[room];
@@ -70,14 +57,14 @@ function swipeHandler(name, room, direction) {
             results : matches,
         });
     }
-}
+};
 
 function joinSession(socket, name, room) {
     currSesh = sessions[room];
     currSesh.addMember(name);
 
     socket.join(room);
-}
+};
 
 createSession(socket, name, category, swipes, location) {
     const findCode = (Math.floor(Math.random()*100000+1));
