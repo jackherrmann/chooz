@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 import React from 'react';
+import SwipePage from './components/swipe';
 // eslint-disable-next-line
 import Item from './components/Item.js'
 // eslint-disable-next-line
