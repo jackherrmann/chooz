@@ -23,15 +23,20 @@ import Results from './components/Results';
 
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient("http://choozserver-env.eba-822ytfjc.us-east-2.elasticbeanstalk.com");
+var socket = null;
 
 function App() {
   return (
     <div>
       <Router>
-        <Route exact path = '/' render={(props) => (
-          <MainPage />
-        )} />
+        <Route exact path = '/' render={(props) => {
+          if (socket) {
+            socket.disconnect();
+          }
+          var newSocket = socketIOClient("localhost:4000");
+          socket = newSocket;
+          return <MainPage />
+          }} />
         <Route path='/create' render={(props) => (
           <StartSession socket={socket} />
         )}/>
