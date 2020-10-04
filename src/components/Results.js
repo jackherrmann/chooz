@@ -33,6 +33,7 @@ const styles = (theme) => ({
         flexDirection: 'column', 
         marginTop: "1rem", 
         alignContent: 'center', 
+        borderRadius: "1.5rem"
     },
     cardTitle: {
         marginTop: "1rem", 
@@ -139,7 +140,7 @@ class Results extends React.Component {
     
                 <Card className={classes.card}>
     
-                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Session Results: </Typography>
+                    <Typography className={classes.cardTitle} color="primary" variant="h4"> Session Results </Typography>
                     <div className={classes.subCardContainer}>
                         {this.createResultsCards()}
                     </div>
