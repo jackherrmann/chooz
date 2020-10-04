@@ -50,7 +50,7 @@ io.on('connection', socket => {
     });
 
     socket.on('start_session', (room) => {
-
+        console.log("started");
         const newSesh = sessions[room];
 
         yelpSearch(newSesh.category, newSesh.location.latitude, newSesh.location.longitude, newSesh.params)
