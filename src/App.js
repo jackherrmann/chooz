@@ -1,5 +1,7 @@
 // eslint-disable-next-line
 import React from 'react';
+import SwipePage from './components/swipe';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // eslint-disable-next-line
