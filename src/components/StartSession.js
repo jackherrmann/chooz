@@ -190,7 +190,7 @@ class StartSession extends Component {
                             labelId="ActivityTypeLabel"
                             id="ActivityType"
                             value={this.state.activityType}
-                            onChange={this.state.handleActivityChange}
+                            onChange={handleActivityChange}
                             className={classes.select}
                         >
                             {getMenuItems(Object.keys(genres))}
