@@ -52,6 +52,10 @@ const styles = (theme) => ({
         paddingTop: '56.25%',
     }, 
     subCardTitle: {
+    },
+    media: {
+        width: "100%", 
+        height: "20rem"
     }
 });
 
@@ -94,14 +98,14 @@ class Results extends React.Component {
         const cards = [];    
         for (let idx in this.state.results) {
             const cardName = this.state.results[idx].name; 
-            const cardLink = this.state.results[idx].link; 
-            const cardPic = this.state.results[idx].pic; 
-            const picture = testImage; 
+            const cardLink = this.state.results[idx].url; 
+            const cardPic = this.state.results[idx].image_url;  
             cards.push(
                 <Card className={classes.subCard}>
                     <CardMedia
-                        className={classes.subCardMedia}
-                        image={picture}
+                        className={classes.media}
+                        component="img"
+                        src={cardPic}
                         title="Item Image"
                     />
 
