@@ -7,6 +7,7 @@ import testPic from './test-media/testPicture.jpg';
 import CardMedia from '@material-ui/core/CardMedia'; 
 import testImage from './test-media/testPicture.jpg'; 
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 
 const styles = (theme) => ({
