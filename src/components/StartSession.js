@@ -87,6 +87,7 @@ class StartSession extends Component {
           count: 0,
           activityType: '',
           activityGenres: [], 
+          activityGenre: '',
           activityPrice: '',
           numItems: 10,
           latitude: 0,
@@ -125,10 +126,10 @@ class StartSession extends Component {
         }
         const handleActivityChange = (event) => {
             this.setState({ activityType: event.target.value });
-            this.setState({ activityGenre: [] });
+            this.setState({ activityGenres: [] });
         }
         const handleGenresChange = (event) => {
-            this.setState({ activityGenre: event.target.value });
+            this.setState({ activityGenres: event.target.value });
         }
         const handlePriceChange = (event) => {
             this.setState({ activityPrice: event.target.value });
