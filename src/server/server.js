@@ -11,6 +11,7 @@ const server = http.createServer(app);
 
 const io = socketio(server);
 
+
 io.on('connection', socket => {
     console.log('User connected!', socket.id);
 
@@ -20,7 +21,13 @@ io.on('connection', socket => {
         const session = sessions[sessionId];
         console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
     });
-    //socket.on('join_session', joinSession);
+
+    socket.on('join_session', (data) => {
+        const { name, sessionId } = data;
+        const session = sessions[sessionId];
+        joinSession(socket, name, sessionId);
+        console.log(`Joined session ${sessionId}, which now has ${session.getNumMembers()} members`);
+    })
     //socket.on('swipe', swipeHandler);
     //socket.on('user_finish', finishUser);
 });
@@ -42,16 +49,23 @@ function swipeHandler(name, room, direction) {
 
 function joinSession(socket, name, room) {
     currSesh = sessions[room];
-    currSesh.addChooser(name);
+    currSesh.addMember(name);
 
     socket.join(room);
 }
 
-function createSession(socket, name, category, swipes) {
-    const code = (Math.floor(Math.random()*100000+1)).toString();
+function createSession(socket, name, category, swipes, location) {
+    const findCode = (Math.floor(Math.random()*100000+1));
+
+    while (findCode.toString() in sessions) {
+        findCode++;
+    }
+
+    const code = findCode.toString();
 
     const newSesh = new Session(category, swipes); //create new session
     
+    newSesh.setLocation(location)
     newSesh.setHost(name);
     newSesh.addMember(name);
 
