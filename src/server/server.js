@@ -15,9 +15,8 @@ io.on('connection', socket => {
     console.log('User connected!', socket.id);
 
     socket.on('create_session', (data) => {
-        const { name, activityType, numSwipes, location } = data;
-        const sessionId = createSession(socket, name, activityType, numSwipes, location);
-        const session = sessions[sessionId];
+        const { name, activityType, numSwipes, location, params } = data;
+        const sessionId = createSession(socket, name, activityType, numSwipes, location, params);
         const emit_data = {
             'sessionId': sessionId
         }
@@ -81,7 +80,7 @@ function joinSession(socket, name, room) {
     socket.join(room);
 };
 
-function createSession(socket, name, category, swipes, location) {
+function createSession(socket, name, category, swipes, location, params) {
     const findCode = (Math.floor(Math.random()*100000+1));
 
     while (findCode.toString() in sessions) {
@@ -90,7 +89,7 @@ function createSession(socket, name, category, swipes, location) {
 
     const code = findCode.toString();
 
-    const newSesh = new Session(category, swipes, location); //create new session
+    const newSesh = new Session(category, swipes, location, params); //create new session
     newSesh.setHost(name);
     newSesh.addMember(name);
 
