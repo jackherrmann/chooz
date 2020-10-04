@@ -25,6 +25,7 @@ const socket = socketIOClient("localhost:4000");
 function App() {
   return (
     <div>
+      <SwipePage />
       <Router>
         <Route exact path = '/' render={(props) => (
           <MainPage />

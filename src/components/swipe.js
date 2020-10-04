@@ -23,23 +23,54 @@ const styles = theme => ({
     }, 
   });
 
-const handleYesClick = () => {
-    console.log("Yes was clicked wooo"); 
-}
+const test1 = {
+    name: 'Pizza Hut',
+    cuisine: 'Chicken Wings',
+    url: '',
+    imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
+    rating: 2.5,
+    location: 'xavier\'s house',
+};
 
-const handleNoClick = () => {
-    console.log("No was clicked nooo"); 
-}
+const test2 = {
+    name: 'Pizza Hut',
+    cuisine: 'Chicken',
+    url: '',
+    imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/arctichare.png',
+    rating: 2,
+    location: 'xavier\'s house',
+};
 
 class SwipePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            idx: 0,
+            activities: [test1, test2],
+            swipes: [],
         };
+    }
+
+    handleYesClick = () => {
+        console.log("Yes was clicked wooo"); 
+        this.setState({ swipes: swipes_c });
+        this.setState({ idx: this.state.idx + 1 });
+    }
+    
+    handleNoClick = () => {
+        console.log("No was clicked nooo"); 
+        this.setState({ swipes: this.state.swipes.concat(0) });
+        this.setState({ idx: this.state.idx + 1 });
     }
 
     render() {
         const { classes } = this.props;
+
+        const name = this.state.activities[this.state.idx].name;
+        const cuisine = this.state.activities[this.state.idx].cuisine;
+        const location = this.state.activities[this.state.idx].location;
+        const imageUrl = this.state.activities[this.state.idx].imageUrl;
+        const rating = this.state.activities[this.state.idx].rating;
 
         return (
             <Grid 
@@ -48,19 +79,25 @@ class SwipePage extends Component {
                 justify="center"
                 alignItems="center">
                 <Grid item>
-                    <Activity />
+                    <Activity 
+                        name={name} 
+                        cuisine={cuisine}
+                        location={location}
+                        imageUrl={imageUrl}
+                        rating={rating}
+                        />
                 </Grid>
                 <Grid container
                     direction="row"
                     justify="center"
                     alignItems="center">
                     <Grid item>
-                        <IconButton className ={classes.noButtonStyle} onClick={handleNoClick} aria-label="Not Interested">
+                        <IconButton className ={classes.noButtonStyle} onClick={this.handleNoClick} aria-label="Not Interested">
                             <NotInterestedIcon />
                         </IconButton>
                     </Grid>
                     <Grid item>
-                        <IconButton className={classes.yesButtonStyle} onClick={handleYesClick} aria-label="Interested">
+                        <IconButton className={classes.yesButtonStyle} onClick={this.handleYesClick} aria-label="Interested">
                             <CheckIcon />
                         </IconButton>
                     </Grid>
