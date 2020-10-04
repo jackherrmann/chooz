@@ -115,8 +115,6 @@ class StartSession extends Component {
 
         navigator.geolocation.getCurrentPosition(
             function(position) {
-                console.log('latitude: ' + position.coords.latitude);
-                console.log('longitude' + position.coords.longitude);
                 setLocationState(position.coords.latitude, position.coords.longitude)
             },
             function(error) {
@@ -135,10 +133,10 @@ class StartSession extends Component {
         const handleNamechange = (event) => {
             this.setState({ name: event.target.value}); 
         }
-        const handleActivityChange = (event) => {
-            this.setState({ activityType: event.target.value });
-            this.setState({ activityGenres: [] });
-        }
+        // const handleActivityChange = (event) => {
+        //     this.setState({ activityType: event.target.value });
+        //     this.setState({ activityGenres: [] });
+        // }
         const handleGenreChange = (event) => {
             this.setState({ activityGenre: event.target.value });
         }
@@ -172,7 +170,6 @@ class StartSession extends Component {
         }
 
         const handleBlur = () => {
-            console.log("handled blur with num: " + this.state.numItems); 
             if (this.state.numItems < 1) {
                 this.setState({ numItems: 1 });
             } else if (this.state.numItems > 100) {

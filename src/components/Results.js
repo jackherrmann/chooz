@@ -76,7 +76,6 @@ class Results extends React.Component {
 
     createResultsCards() {
         const { classes } = this.props; 
-        // for testing
         const resultOne = {
             "name": "Pizza Hut", 
             "link": "https://www.pizzahut.com", 

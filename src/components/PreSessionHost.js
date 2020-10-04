@@ -73,14 +73,12 @@ class PreSessionHost extends React.Component {
     componentDidMount() {
         this.socket.on('created_session', data => {
             const {sessionId} = data;
-            console.log ("received", sessionId);
             this.setState({
                 sessionId: sessionId
             })
         })
         this.socket.on('user_joined_session', data => {
             const {username} = data;
-            console.log("received ", username);
             this.setState({
                 participants: this.state.participants.concat(username)
             })
@@ -98,7 +96,6 @@ class PreSessionHost extends React.Component {
     }
 
     handleBegin = () => {
-        console.log("began with id: " + this.state.sessionId); 
         this.socket.emit('start_session', this.state.sessionId);
     }
 
