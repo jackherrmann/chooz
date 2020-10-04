@@ -1,6 +1,8 @@
+import {yelpSearch} from '../yelp-api/yelpSearch';
+
 class Session {
 
-    constructor(category, numActivities) {
+    constructor(category, numActivities, location) {
         this.host = "";
         this.choosers = {};
         this.category = category;
@@ -8,6 +10,7 @@ class Session {
         this.numActivities = numActivities;
         this.results = {}; // maps activites to num of matches, take that number compare to total num of users
         this.activities = [];
+        this.location = location
         this.generateActivities(this.category);
     }
 
@@ -27,7 +30,40 @@ class Session {
         if (category == "movies") {
 
         } else if (category == "food") {
+            const [businesses, amountResults, searchParams, setSearchParams] 
+                = yelpSearch(category, location.latitude, location.longitude);
 
+            var c = 0;
+            
+            for (b in businesses) { 
+                if (c == this.numActivities) {
+                    break;
+                }
+
+                const activity = {
+                    name : b.name,
+                    cuisine : b.categories[0].title,
+                    url : b.url,
+                    image_url : b.image_url,
+                    rating : b.rating,
+                    price : b.price,
+                    location : b.location.display_address,
+                }
+
+                this.activities.push(activity);
+                c++;
+            }
+
+            for (name in this.choosers) {
+                var dummy = [];
+                for (var i = 0; i < c + 1; i++) {
+                    dummy.push(-1);
+                }
+    
+                this.swipes[name] = dummy;
+            }
+            
+            // name, price, cuisine, type = food, rating, 
         } else if (category == "events") {
 
         }
@@ -38,13 +74,6 @@ class Session {
 
     addMember(name) {
         this.choosers[name] = 0;
-
-        var dummy = [];
-        for (var i = 0; i < this.num; i++) {
-            dummy.push(-1);
-        }
-
-        this.swipes[name] = dummy;
     }
 
     setHost(name) {
