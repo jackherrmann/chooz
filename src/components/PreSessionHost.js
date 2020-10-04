@@ -90,9 +90,9 @@ class PreSessionHost extends React.Component {
     }
 
     handleBegin = () => {
-        console.log("began with id: " + this.state.sessionId); 
-        this.socket.emit('start_session', this.state.sessionId);
-    }
+        console.log("began with id: " + this.state.sessionId); 
+        this.socket.emit('start_session', this.state.sessionId);
+    }
 
 
     deletePart = (idx) => {

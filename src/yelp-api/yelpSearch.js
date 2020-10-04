@@ -2,7 +2,9 @@
 const api = require('./api');
 
 async function yelpSearch(term, latitude, longitude, params) {
-    var businesses = [];
+
+    console.log('params below');
+    console.log(params);
 
     var searchParams = {
         'term' : term, 
@@ -11,7 +13,7 @@ async function yelpSearch(term, latitude, longitude, params) {
     };
 
     if (!(params.price == 'Any')) {
-        searchParams['price'] = params.price;
+        searchParams['price'] = params.price.length;
     }
 
     if (!(params.cuisine == 'Any')) {

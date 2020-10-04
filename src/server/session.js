@@ -22,48 +22,6 @@ class Session {
         return this.activities;
     }
 
-    async generateActivities() {
-        console.log(this.category)
-        if (this.category == "movies") {
-
-        } else if (this.category == "Restaurants") {
-            yelpSearch(this.category, this.location.latitude, this.location.longitude, this.params)
-            .then((businesses) => {
-                console.log(businesses[0]);
-                var c = 0;
-                
-                for (var b of businesses) { 
-                    if (c == this.numActivities) {
-                        break;
-                    }
-                    
-                    const activity = {
-                        name : b.name,
-                        cuisine : b.categories[0].title,
-                        url : b.url,
-                        image_url : b.image_url,
-                        rating : b.rating,
-                        price : b.price,
-                        location : b.location.display_address[0] + ", " + b.location.display_address[1],
-                    }
-
-                    this.activities.push(activity);
-                    c++;
-                }
-                
-            })
-
-            
-            
-            // name, price, cuisine, type = food, rating, 
-        } else if (this.category == "events") {
-
-        }
-    
-            //implement apis
-        
-    }
-
     addMember(name) {
         this.choosers.push(name);
     }
@@ -71,18 +29,6 @@ class Session {
     setHost(name) {
         this.hose = name;
     }
-
-    // performSwipe(name, direction) {
-    //     var idx = this.choosers[name]
-
-    //     if (direction == "left") {
-    //         this.swipes[name][idx] = 0;
-    //     } else {
-    //         this.swipes[name][idx] = 1;
-    //     }
-
-    //     this.choosers[name]++;
-    // }
 
     processSwipes(name, userSwipes) {
         this.swipes[name] = userSwipes;
