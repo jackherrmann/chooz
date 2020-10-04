@@ -18,7 +18,6 @@ io.on('connection', socket => {
 
     socket.on('create_session', (data) => {
         const { name, activityType, numSwipes, location, params } = data;
-        console.log(data)
         const sessionId = createSession(socket, name, activityType, numSwipes, location, params);
         const emit_data = {
             'sessionId': sessionId
@@ -55,7 +54,6 @@ io.on('connection', socket => {
 
         yelpSearch(newSesh.cuisine, newSesh.location.latitude, newSesh.location.longitude, newSesh.params)
         .then((businesses) => {
-            console.log('first business');
             var c = 0;
             
             for (var b of businesses) { 
@@ -92,7 +90,6 @@ io.on('connection', socket => {
 
         if (isFinished(room)) {
             const matches = getMatches(room);
-            console.log(matches);
             const emit_results = {
                 matches : matches
             }
