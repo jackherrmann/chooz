@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { IconButton, Grid, withStyles } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import Activity from './Activity';
 import NotInterestedIcon from '@material-ui/icons/NotInterested'; 
 import CheckIcon from '@material-ui/icons/Check';
@@ -20,6 +23,18 @@ const styles = theme => ({
         color: 'white', 
         marginLeft: '1rem',
         marginTop: '1rem',
+    }, 
+    container: {
+        width: '100%', 
+        display: 'flex', 
+        flexWrap: 'wrap', 
+        flexDirection: 'column', 
+        textAlign: 'center', 
+        alignContent: 'center',  
+    }, 
+    title: {
+        marginTop: "2rem", 
+        marginBottom: "3rem", 
     }, 
   });
 
@@ -107,36 +122,42 @@ class SwipePage extends Component {
         console.log(name);
 
         return (
-            <Grid 
-                container
-                direction="column"
-                justify="center"
-                alignItems="center">
-                <Grid item>
-                    <Activity 
-                        name={name} 
-                        cuisine={cuisine}
-                        location={location}
-                        imageUrl={imageUrl}
-                        rating={rating}
-                        />
-                </Grid>
-                <Grid container
-                    direction="row"
+            <Container className={classes.container}>
+    
+                <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
+    
+                <Grid 
+                    container
+                    direction="column"
                     justify="center"
-                    alignItems="center">
+                    alignItems="center"
+                    margin="1rem">
                     <Grid item>
-                        <IconButton className ={classes.noButtonStyle} onClick={this.handleNoClick} aria-label="Not Interested">
-                            <NotInterestedIcon />
-                        </IconButton>
+                        <Activity 
+                            name={name} 
+                            cuisine={cuisine}
+                            location={location}
+                            imageUrl={imageUrl}
+                            rating={rating}
+                            />
                     </Grid>
-                    <Grid item>
-                        <IconButton className={classes.yesButtonStyle} onClick={this.handleYesClick} aria-label="Interested">
-                            <CheckIcon />
-                        </IconButton>
+                    <Grid container
+                        direction="row"
+                        justify="center"
+                        alignItems="center">
+                        <Grid item>
+                            <IconButton className ={classes.noButtonStyle} onClick={this.handleNoClick} aria-label="Not Interested">
+                                <NotInterestedIcon />
+                            </IconButton>
+                        </Grid>
+                        <Grid item>
+                            <IconButton className={classes.yesButtonStyle} onClick={this.handleYesClick} aria-label="Interested">
+                                <CheckIcon />
+                            </IconButton>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+        </Container>
       );
     }
       
