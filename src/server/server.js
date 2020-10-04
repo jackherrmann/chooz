@@ -64,8 +64,7 @@ function createSession(socket, name, category, swipes, location) {
     const code = findCode.toString();
 
     const newSesh = new Session(category, swipes); //create new session
-    
-    newSesh.setLocation(location)
+
     newSesh.setHost(name);
     newSesh.addMember(name);
 
