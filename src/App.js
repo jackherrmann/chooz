@@ -18,7 +18,7 @@ import socketIOClient from "socket.io-client";
 const socket = socketIOClient("localhost:4000");
 
 function App() {
-  return PreSessionGuest(); 
+  return PreSessionHost(); 
 }
 
 export default App;

@@ -60,13 +60,16 @@ export default function PreSessionHost() {
     const handleBegin = () => {
         console.log("began with id: " + id); 
     }
+
+    var participants = ["Jack", "Eric", "Alex", "Xavier"]; 
+
+
     const deletePart = (idx) => {
         console.log("deleted part at: " + idx); 
     }
 
     
 
-    var participants = ["Jack", "Eric", "Alex", "Xavier"]; 
 
     const createPartList = () => {
         var parts = [];  
