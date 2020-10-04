@@ -34,7 +34,6 @@ function getItemInfo() {
 }
 // end of the fake data
 function getIcon(itemType) {
-    console.log(itemType); 
     switch(itemType) {
         case 'food': 
             return FoodIcon; 

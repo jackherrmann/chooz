@@ -78,7 +78,6 @@ class PreSessionGuest extends React.Component {
     componentDidMount() {
         this.socket.on('initial_joined_session', data => {
             const {sessionId, participants} = data;
-            console.log ("received", sessionId);
             this.setState({
                 sessionId: sessionId,
                 participants: participants
@@ -86,7 +85,6 @@ class PreSessionGuest extends React.Component {
         })
         this.socket.on('user_joined_session', data => {
             const {username} = data;
-            console.log("received ", username);
             this.setState({
                 participants: this.state.participants.concat(username)
             })
