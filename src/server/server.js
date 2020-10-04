@@ -81,26 +81,6 @@ io.on('connection', socket => {
             socket.to(room).emit('started_session', newSesh.activities);
             socket.emit('started_session', newSesh.activities);
         });
-      
-        const test1 = {
-            name: 'Pizza Hut',
-            cuisine: 'Chicken Wings',
-            url: '',
-            imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
-            rating: 2.5,
-            location: 'xavier\'s house',
-        };
-        
-        const test2 = {
-            name: 'Pizza Hut',
-            cuisine: 'Chicken',
-            url: '',
-            imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/arctichare.png',
-            rating: 2,
-            location: 'xavier\'s house',
-        };
-//         socket.to(room).emit('started_session', [test1, test2]);
-//         socket.emit('started_session', [test1, test2]);
     });
 
     socket.on('process_swipes', (room, name, userSwipes) => {
