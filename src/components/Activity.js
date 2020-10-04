@@ -18,6 +18,7 @@ const styles = (theme) => ({
         borderRadius: 8,
         boxShadow: '0 8px 16px 0 #BDC9D7',
         overflow: 'hidden',
+        backgroundColor: 'white'
     },
 
     media: {
