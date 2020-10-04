@@ -59,7 +59,7 @@ io.on('connection', socket => {
         socket.emit('processed_swipes', emit_data);
 
         if (isFinished()) {
-            const matches = getMatches();
+            const matches = getMatches(room);
             const emit_results = {
                 matches : matches
             }
