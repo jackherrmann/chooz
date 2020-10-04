@@ -45,18 +45,15 @@ const styles = (theme) => ({
         bottom:'3rem',
         left:'1rem',
         color: '#ffffff',
-        fontSize: 30,
-        fontWeight: 400,
-        fontFamily: 'sans-serif',
-        fontStyle: 'normal',
     },
 
     chipStyle: {
-        color: "primary", 
+        color: "#5353b5", 
         marginLeft: 10, 
         marginRight: 10, 
         marginTop: 5, 
         marginBottom: 5, 
+        background: "#e3e3ff",
     }, 
   });
 
@@ -76,11 +73,13 @@ class Activity extends Component {
                         <Box>
                             <CardMedia component="img" className={classes.media} src={this.props.imageUrl} />
                             <Box className={classes.overlay} pb="0rem" >
-                                {this.props.name}
+                                <Typography variant="h5">
+                                    {this.props.name}
+                                </Typography>
                             </Box>
                         </Box>
                         <Box pl="1rem" pr="0.5rem">
-                            <Typography variant="body2" color="textSecondary" component="p">
+                            <Typography variant="body2" color="#5353b5" component="p">
                                 {this.props.location}
                             </Typography>
                             <Box className={classes.chipContainer}>
