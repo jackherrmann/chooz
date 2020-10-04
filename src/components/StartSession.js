@@ -151,6 +151,10 @@ class StartSession extends Component {
                 'location': {
                     'latitude': this.state.latitude,
                     'longitude': this.state.longitude,
+                },
+                'params': {
+                    'genre' : this.state.activityGenre,
+                    'price' : this.state.activityPrice,
                 }
                 
             };

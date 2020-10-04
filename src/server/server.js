@@ -1,7 +1,6 @@
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
-const { default: StartSession } = require('../components/StartSession');
 
 const { Session } = require('./session');
 
@@ -16,10 +15,8 @@ io.on('connection', socket => {
     console.log('User connected!', socket.id);
 
     socket.on('create_session', (data) => {
-        const { name, activityType, numSwipes } = data;
-        const sessionId = createSession(socket, name, activityType, numSwipes);
-        const session = sessions[sessionId];
-        console.log(`New session created with id ${sessionId}, activity type ${session.getCategory()}, ${session.getNumActivites()} activities`);
+        const { name, activityType, numSwipes, location, params } = data;
+        const sessionId = createSession(socket, name, activityType, numSwipes, location, params);
         const emit_data = {
             'sessionId': sessionId
         }
@@ -42,25 +39,39 @@ io.on('connection', socket => {
         }
         socket.emit('initial_joined_session', emit_data_to_joiner);
     });
-    //socket.on('swipe', swipeHandler);
+
+    socket.on('start_session', (room) => {
+        startSession(room)
+        .then(activities => {
+            const emit_data = {
+                activities: activities,
+            }
+            socket.to(room).emit('started_session', emit_data);
+        });
+    });
+
+    socket.on('process_swipes', (room, name, userSwipes) => {
+        processSwipes(room, name, userSwipes)
+        const emit_data = {
+            message: 'Swipes processed!',
+        }
+        socket.emit('processed_swipes', emit_data);
+
+        if (isFinished()) {
+            const matches = getMatches(room);
+            const emit_results = {
+                matches : matches
+            }
+            socket.to(room).emit('finished_all', emit_results);
+        }
+    });
+
     //socket.on('user_finish', finishUser);
 });
 
 const sessions = {}; //maps session 'socket room' name to the actual session
 
 
-function swipeHandler(name, room, direction) {
-    currSesh = sessions[room];
-    currSesh.performSwipe(name, direction);
-
-    if (currSesh.isFinished() == true) {
-        matches = currSesh.getMatches();
-        
-        socket.to(room).emit("results", {
-            results : matches,
-        });
-    }
-};
 
 function joinSession(socket, name, room) {
     currSesh = sessions[room];
@@ -69,7 +80,7 @@ function joinSession(socket, name, room) {
     socket.join(room);
 };
 
-createSession(socket, name, category, swipes, location) {
+function createSession(socket, name, category, swipes, location, params) {
     const findCode = (Math.floor(Math.random()*100000+1));
 
     while (findCode.toString() in sessions) {
@@ -78,8 +89,7 @@ createSession(socket, name, category, swipes, location) {
 
     const code = findCode.toString();
 
-    const newSesh = new Session(category, swipes, location); //create new session
-    console.log("adding mem");
+    const newSesh = new Session(category, swipes, location, params); //create new session
     newSesh.setHost(name);
     newSesh.addMember(name);
 
@@ -88,10 +98,32 @@ createSession(socket, name, category, swipes, location) {
     sessions[code] = newSesh; //add session to session dict
 
     socket.join(code);
+
+    return code;
 }
 
-async function startSession() {
-    await newSesh.generateActivities();
+async function startSession(room) {
+    await sessions[room].generateActivities();
+
+    const activities = newSesh.getActivities();
+
+    return activities;
+}
+
+function processSwipes(room, name, userSwipes) {
+    const currSesh = sessions[room];
+
+    currSesh.processSwipes(name, userSwipes);
+}
+
+function isFinished(room) {
+    currSesh = sessions[room];
+    return currSesh.isFinished();
+}
+
+function getMatches(room) {
+    currSesh = sessions[room];
+    return currSesh.getMatches();
 }
 
 server.listen(port, function() {
