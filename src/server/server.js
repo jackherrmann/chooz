@@ -41,12 +41,13 @@ io.on('connection', socket => {
             'participants': session.getMembers()
         }
         socket.emit('initial_joined_session', emit_data_to_joiner);
-    })
+    });
     //socket.on('swipe', swipeHandler);
     //socket.on('user_finish', finishUser);
 });
 
-const sessions = {} //maps session 'socket room' name to the actual session
+const sessions = {}; //maps session 'socket room' name to the actual session
+
 
 function swipeHandler(name, room, direction) {
     currSesh = sessions[room];
@@ -59,14 +60,14 @@ function swipeHandler(name, room, direction) {
             results : matches,
         });
     }
-}
+};
 
 function joinSession(socket, name, room) {
     currSesh = sessions[room];
     currSesh.addMember(name);
 
     socket.join(room);
-}
+};
 
 createSession(socket, name, category, swipes, location) {
     const findCode = (Math.floor(Math.random()*100000+1));
