@@ -17,6 +17,9 @@ import PreSessionHost from './components/PreSessionHost.js';
 import PreSessionGuest from './components/PreSessionGuest.js'; 
 //eslint-disable-next-line
 import SwipePage from './components/swipe';
+import PostSwipeWait from'./components/PostSwipeWait';
+
+import Results from './components/Results';
 
 import socketIOClient from "socket.io-client";
 
@@ -43,6 +46,12 @@ function App() {
         )} />
         <Route path='/session' render={(props) => (
           <SwipePage {...props} socket={socket}/>
+        )} />
+        <Route path='/waiting' render={(props) => (
+          <PostSwipeWait {...props} socket={socket}/>
+        )} />
+        <Route path='/results' render={(props) => (
+          <Results {...props} socket={socket}/>
         )} />
       </Router>
     </div>

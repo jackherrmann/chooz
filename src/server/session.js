@@ -35,30 +35,35 @@ class Session {
     }
 
     isFinished() {
-        if (Object.keys(this.swipes).size() == this.choosers.length) {
+        if (Object.keys(this.swipes).length == this.choosers.length) {
             return true;
         }
 
         return false;
     }
 
+    // TODO: Fix
     getMatches() {
-        indexes = {};
-        currIndex = 0;
+        console.log(this.swipes);
+        var indexes = {};
+        var currIndex = 0;
 
-        for (var i of swipes) {
-            for (var j of swipes[i]) {
-                indexes[currIndex] += j;
+        for (var i of Object.keys(this.swipes)) {
+            for (var j of this.swipes[i]) {
+                currIndex in indexes 
+                    ? indexes[currIndex] += j
+                    : indexes[currIndex] = 1;
                 currIndex++;
             }
             currIndex = 0;
         }
+        console.log(indexes);
 
-        matches = [];
+        var matches = [];
 
-        for (var i of indexes) {
-            if (index[i] == this.choosers.length) {
-                matches.push(activities[i]);
+        for (var i of Object.keys(indexes)) {
+            if (indexes[i] == this.choosers.length) {
+                matches.push(this.activities[i]);
             }
         }
 

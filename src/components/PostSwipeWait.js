@@ -43,39 +43,22 @@ const styles = (theme) => ({
 
 
 
-class PreSessionGuest extends React.Component {
+class PostSwipeWait extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-        }
         this.socket = props.socket;
     }
 
     componentDidMount() {
-        this.socket.on('initial_joined_session', data => {
-            const {sessionId, participants} = data;
-            console.log ("received", sessionId);
-            this.setState({
-                sessionId: sessionId,
-                participants: participants
-            })
-        })
-        this.socket.on('user_joined_session', data => {
-            const {username} = data;
-            console.log("received ", username);
-            this.setState({
-                participants: this.state.participants.concat(username)
-            })
-        })
-        this.socket.on('started_session', activities => {
+        this.socket.on('finished_all', (data) => {
+            const {matches} = data;
             this.props.history.push({
-                pathname: '/session',
-                state: {    
-                    activities: activities,
-                    name: this.state.name
+                pathname: '/results',
+                state: {
+                    matches: matches
                 }
-            })
+            });
         })
     }
 
@@ -100,4 +83,4 @@ class PreSessionGuest extends React.Component {
     }
 }
 
-export default withRouter(withStyles(styles, {withTheme: true})(PreSessionGuest));
+export default withRouter(withStyles(styles, {withTheme: true})(PostSwipeWait));
