@@ -86,11 +86,15 @@ class SwipePage extends Component {
     render() {
         const { classes } = this.props;
 
+        console.log(this.state.idx);
+
         const name = this.state.activities[this.state.idx].name;
         const cuisine = this.state.activities[this.state.idx].cuisine;
         const location = this.state.activities[this.state.idx].location;
         const imageUrl = this.state.activities[this.state.idx].imageUrl;
         const rating = this.state.activities[this.state.idx].rating;
+
+        console.log(name);
 
         return (
             <Grid 
