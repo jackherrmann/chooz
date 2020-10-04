@@ -50,7 +50,7 @@ io.on('connection', socket => {
     });
 
     socket.on('start_session', (room) => {
-
+        console.log("started");
         const newSesh = sessions[room];
 
         yelpSearch(newSesh.category, newSesh.location.latitude, newSesh.location.longitude, newSesh.params)
@@ -79,11 +79,8 @@ io.on('connection', socket => {
 
             // return newSesh.activities;
 
-            const emit_data = {
-                activities: newSesh.activities,
-            }
             console.log(emit_data.activities);
-            socket.to(room).emit('started_session', emit_data);
+            socket.to(room).emit('started_session', newSesh.activities);
         });
       
         const test1 = {
