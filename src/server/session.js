@@ -17,6 +17,10 @@ class Session {
         return this.choosers;
     }
 
+    getActivities() {
+        return this.activities;
+    }
+
     async generateActivities() {
         console.log(this.category)
         if (this.category == "movies") {

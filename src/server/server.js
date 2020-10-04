@@ -102,7 +102,7 @@ function createSession(socket, name, category, swipes, location) {
 async function startSession(room) {
     await sessions[room].generateActivities();
 
-    const activities = newSesh.activities;
+    const activities = newSesh.getActivities();
 
     return activities;
 }
