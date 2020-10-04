@@ -6,7 +6,7 @@ const { Session } = require('./session');
 
 const app = express();
 
-const port = 4000;
+const port = process.env.port || 4000;
 const server = http.createServer(app);
 
 const io = socketio(server);

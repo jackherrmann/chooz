@@ -23,7 +23,7 @@ import Results from './components/Results';
 
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient("localhost:4000");
+const socket = socketIOClient("http://choozserver-env.eba-822ytfjc.us-east-2.elasticbeanstalk.com");
 
 function App() {
   return (
