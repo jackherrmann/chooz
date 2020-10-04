@@ -1,68 +1,38 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Inspiration
+Friend 1 : “What do you want to eat tonight?”
 
-## Available Scripts
+Friend 2: “Anything is good.”
 
-In the project directory, you can run:
+Friend 1: “What about pizza?”
 
-### `npm start`
+Friend 2: “Hmmm, nah, I'm not in the mood.”
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Friend 1: “What is there nearby?”
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Friend 2: “Not sure.”
 
-### `npm test`
+How many times have you had this conversation with your friends? With Chooz.io, you can swipe right on restaurants near you with your friends, giving you a list of places you'd all enjoy. **What will you Chooz?**
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## What it does
+Chooz.io asks for your current location, cuisine of choice, and price range to create a list of relevant restaurants you'd potentially want to go to. 
 
-### `npm run build`
+Log on to chooz.io to create a session and share the Session ID with your friends. Once everyone has joined, start the session and everyone swipes on the restaurants on the generated list. 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+When everyone is dope swiping, the list of restaurants that everyone swiped right on are shown on the ending screen with links to their websites. Chooz.io is the perfect solution to your decision making problems.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## How we built it
+Chooz.io uses socket.io rooms to connect groups of friends using a Session ID. It uses React on the frontend and Node.js on the backend. We ask the Session creator for permission to get their current location from their browser, and pull the relevant list of restaurants in your area using the Yelp API. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Challenges we ran into
+We initially set up a Firebase database, but decided later that we didn’t need it and could store everything on the server instead. 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Accomplishments that we're proud of
+Successfully creating synchronized sessions using socket.io rooms, connecting to the Yelp API, and making stylized pages using React.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## What we learned
+This was our first hackathon! We had never used socket.io before, so that was a fun challenge.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## What's next for Chooz.io
+We want to expand the decision making help to movies, events, and general activities. In the future, Chooz.io would help you with any type of decision on what to do or where to go with friends or a significant other. For example, Chooz.io could help you decide what movie to see and what restaurant to go to for your date night, or help you pick out a movie for your virtual Netflix Party with 10 friends. We also want to bring Chooz.io to mobile using React Native, so you can decide on the go.
