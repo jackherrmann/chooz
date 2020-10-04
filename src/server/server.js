@@ -40,6 +40,16 @@ io.on('connection', socket => {
         }
         socket.emit('initial_joined_session', emit_data_to_joiner);
     });
+
+    socket.on('start_session', (room) => {
+        startSession(room)
+        .then(activities => {
+            const emit_data = {
+                'activities': activities,
+            }
+            socket.to(room).emit('started_session', emit_data);
+        });
+    });
     //socket.on('swipe', swipeHandler);
     //socket.on('user_finish', finishUser);
 });
@@ -89,8 +99,12 @@ function createSession(socket, name, category, swipes, location) {
     return code;
 }
 
-async function startSession() {
-    await newSesh.generateActivities();
+async function startSession(room) {
+    await sessions[room].generateActivities();
+
+    const activities = newSesh.activities;
+
+    return activities;
 }
 
 server.listen(port, function() {
