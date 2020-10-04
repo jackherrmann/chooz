@@ -45,30 +45,34 @@ io.on('connection', socket => {
         startSession(room)
         .then(activities => {
             const emit_data = {
-                'activities': activities,
+                activities: activities,
             }
             socket.to(room).emit('started_session', emit_data);
         });
     });
-    //socket.on('swipe', swipeHandler);
+
+    socket.on('process_swipes', (room, name, userSwipes) => {
+        processSwipes(room, name, userSwipes)
+        const emit_data = {
+            message: 'Swipes processed!',
+        }
+        socket.emit('processed_swipes', emit_data);
+
+        if (isFinished()) {
+            const matches = getMatches();
+            const emit_results = {
+                matches : matches
+            }
+            socket.emit('finished_all', emit_results);
+        }
+    });
+
     //socket.on('user_finish', finishUser);
 });
 
 const sessions = {}; //maps session 'socket room' name to the actual session
 
 
-function swipeHandler(name, room, direction) {
-    currSesh = sessions[room];
-    currSesh.performSwipe(name, direction);
-
-    if (currSesh.isFinished() == true) {
-        matches = currSesh.getMatches();
-        
-        socket.to(room).emit("results", {
-            results : matches,
-        });
-    }
-};
 
 function joinSession(socket, name, room) {
     currSesh = sessions[room];
@@ -105,6 +109,22 @@ async function startSession(room) {
     const activities = newSesh.getActivities();
 
     return activities;
+}
+
+function processSwipes(room, name, userSwipes) {
+    const currSesh = sessions[room];
+
+    currSesh.processSwipes(name, userSwipes);
+}
+
+function isFinished(room) {
+    currSesh = sessions[room];
+    return currSesh.isFinished();
+}
+
+function getMatches(room) {
+    currSesh = sessions[room];
+    return currSesh.getMatches();
 }
 
 server.listen(port, function() {

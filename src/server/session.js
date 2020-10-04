@@ -88,21 +88,19 @@ class Session {
     }
 
     isFinished() {
-        for (i in choosers) {
-            if (choosers[i] !== self.nums) {
-                return false;
-            }
+        if (Object.keys(this.swipes).size() == this.choosers.length) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     getMatches() {
         indexes = {};
         currIndex = 0;
 
-        for (i in swipes) {
-            for (j of swipes[i]) {
+        for (var i of swipes) {
+            for (var j of swipes[i]) {
                 indexes[currIndex] += j;
                 currIndex++;
             }
@@ -111,8 +109,8 @@ class Session {
 
         matches = [];
 
-        for (i in indexes) {
-            if (index[i] == this.choosers.length()) {
+        for (var i of indexes) {
+            if (index[i] == this.choosers.length) {
                 matches.push(activities[i]);
             }
         }
