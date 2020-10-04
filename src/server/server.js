@@ -17,7 +17,6 @@ io.on('connection', socket => {
     socket.on('create_session', (data) => {
         const { name, activityType, numSwipes } = data;
         const sessionId = createSession(socket, name, activityType, numSwipes);
-        const session = sessions[sessionId];
         const emit_data = {
             'sessionId': sessionId
         }
@@ -27,7 +26,6 @@ io.on('connection', socket => {
     socket.on('join_session', (data) => {
         const { name, sessionId } = data;
         const joinResult = joinSession(socket, name, sessionId);
-        console.log(joinResult);
         if (joinResult == -1) {
             socket.emit('join_attempt_result', false);
         }
@@ -104,8 +102,6 @@ function createSession(socket, name, category, swipes, location) {
     const newSesh = new Session(category, swipes, location); //create new session
     newSesh.setHost(name);
     newSesh.addMember(name);
-
-    console.log(newSesh.category);
     
     sessions[code] = newSesh; //add session to session dict
 
