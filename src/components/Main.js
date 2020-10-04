@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import { Link } from 'react-router-dom';
 
@@ -12,19 +13,26 @@ const useStyles = makeStyles((theme) => ({
     container: {
         width: '100%', 
         display: 'flex', 
-        flexWrap: 'wrap', 
+        flexWrap: 'no-wrap', 
+        flexDirection: 'column',
         textAlign: 'center', 
-        justifyContent: 'space-around', 
+        justifyContent: 'space-around',
+        alignItems: 'center',
     }, 
     title: {
         marginTop: "2rem", 
-        marginBottom: "3rem", 
+        marginBottom: "0.25rem", 
     }, 
+    description: {
+        marginBottom: "2rem",
+        color: "#343471",
+    },
     card: {
         width: '75%', 
         display: 'flex', 
         flexWrap: 'wrap', 
         justifyContent: 'center', 
+        alignItems: 'center',
         marginTop: 20, 
     },
     button: {
@@ -55,6 +63,10 @@ export default function MainPage() {
         <Container className={classes.container}>
 
             <Typography className={classes.title} color="primary" variant="h1"> chooz.io</Typography>
+
+            <Typography className={classes.description} color="secondary" variant="subtitle1">
+                The app that helps you and your friends decide where to eat
+            </Typography>
 
             <Card className={classes.card}>
                 <Link to='/create'>
