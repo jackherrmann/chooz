@@ -15,8 +15,8 @@ io.on('connection', socket => {
     console.log('User connected!', socket.id);
 
     socket.on('create_session', (data) => {
-        const { name, activityType, numSwipes } = data;
-        const sessionId = createSession(socket, name, activityType, numSwipes);
+        const { name, activityType, numSwipes, location } = data;
+        const sessionId = createSession(socket, name, activityType, numSwipes, location);
         const session = sessions[sessionId];
         const emit_data = {
             'sessionId': sessionId
